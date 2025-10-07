@@ -99,7 +99,7 @@ public class MagpieSimulationTest {
         }
 
         Assert.assertEquals(
-                "2 magpies should have been spawned near the top left", 5, topLeftSpawn);
+                "5 magpies should have been spawned near the top left", 5, topLeftSpawn);
         Assert.assertEquals(
                 "1 magpie should have been spawned near the top right", 1, topRightSpawn);
         Assert.assertEquals(

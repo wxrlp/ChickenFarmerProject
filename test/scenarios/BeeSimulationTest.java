@@ -107,7 +107,7 @@ public class BeeSimulationTest {
     /** Confirm the expected number of bees are spawned over the lifespan of this sim. */
     @Test
     public void confirmBeesSpawn() {
-        Assert.assertEquals("expected to see 4 bees spawn", 6, data.getBySpriteGroup("bee").size());
+        Assert.assertEquals("expected to see 6 bees spawn", 6, data.getBySpriteGroup("bee").size());
     }
 
     /** Confirm all bees are spawned on top of the hive as expected. */
@@ -162,8 +162,8 @@ public class BeeSimulationTest {
                 Assert.assertNotEquals(
                         "bee should not have stayed at the same horizontal position at any point "
                                 + "in the games lifespan for more then 5 concurrent frames",
-                        sameXCount,
-                        5);
+                        5,
+                        sameXCount);
 
                 // checking for getting stuck vertically
                 if (prevY == frame.getY()) { // we tick up how many frames in a row did we just see
@@ -176,8 +176,8 @@ public class BeeSimulationTest {
                 Assert.assertNotEquals(
                         "bee should not have stayed at the same vertical position at any point "
                                 + "in the games lifespan for more then 5 concurrent frames",
-                        sameYCount,
-                        5);
+                        5,
+                        sameYCount);
             }
         }
     }

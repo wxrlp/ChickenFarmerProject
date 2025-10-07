@@ -87,7 +87,7 @@ public class BeeAttackEagleSimulationTest {
     @Test
     public void confirmBeeHivesPlaced() {
         Assert.assertEquals(
-                "only 3 hives should have been placed over the " + "lifespan of this game",
+                "only 3 hives should have been placed over the lifespan of this game",
                 3,
                 data.getBySpriteGroup("hive").size());
     }

@@ -108,7 +108,7 @@ public class ResourceSimulationTest {
     @Test
     public void confirmCabbageCollected() {
         final List<RenderableAnalyser> cabbages = data.getBySpriteGroup("cabbage");
-        Assert.assertEquals("There were 2 cabbages in the test", cabbages.size(), 2);
+        Assert.assertEquals("There were 2 cabbages in the test", 2, cabbages.size());
 
         Assert.assertNotEquals(
                 "One cabbage should have a shortened lifespan as it should have been picked up by"

@@ -84,7 +84,6 @@ public class PigeonSimulationTest {
                 data.getBySpriteGroup("pigeon").isEmpty());
 
         RenderableAnalyser firstPigeon = data.getFirstSpawnedOfSpriteGroup("pigeon");
-        System.out.println(firstPigeon.getFirstFrame().getFrame());
         Assert.assertTrue(
                 "pigeon should not have been spawned before the 100th frame, there are no cabbages"
                         + " planted before then. ",
