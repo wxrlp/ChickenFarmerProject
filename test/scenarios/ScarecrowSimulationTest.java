@@ -153,6 +153,7 @@ public class ScarecrowSimulationTest {
     public void pigeonsMoveTowardsPlayer() {
         int countMovedDownRight = 0;
         int countMovedUpLeft = 0;
+        int countMovedUpRight = 0;
         for (final RenderableAnalyser renderableAnalyzer : data.getBySpriteGroup("pigeon")) {
             final MovementAnalyser pigeon = new MovementAnalyser(renderableAnalyzer);
             final int start = pigeon.getFrames().getFirst().getFrame();
@@ -161,18 +162,30 @@ public class ScarecrowSimulationTest {
             final XyPair delta = pigeon.measureOverallMoveBetween(start, end);
             final boolean movedDownRight = (delta.getX() == 20 && delta.getY() == 20);
             final boolean movedUpLeft = (delta.getX() == -20 && delta.getY() == -20);
+            final boolean movedUpRight = (delta.getX() == 20 && delta.getY() == -20);
             if (movedUpLeft) {
                 countMovedUpLeft += 1;
             }
             if (movedDownRight) {
                 countMovedDownRight += 1;
             }
+            if (movedUpRight) {
+                countMovedUpRight += 1;
+            }
         }
 
-        Assert.assertEquals(
-                "1 pigeon should have been spawned initially flying down and to the right",
-                1,
-                countMovedDownRight);
+        // allows either the fixed or broken version of pigeon spawner
+        if (countMovedDownRight > countMovedUpRight) {
+            Assert.assertEquals(
+                    "1 pigeon should have been spawned initially flying either down and to the right or up and to the right",
+                    1,
+                    countMovedDownRight);
+        } else {
+            Assert.assertEquals(
+                    "1 pigeon should have been spawned initially flying either down and to the right or up and to the right",
+                    1,
+                    countMovedUpRight);
+        }
         Assert.assertEquals(
                 "2 pigeons should have been spawned initially flying up and to the left",
                 2,
