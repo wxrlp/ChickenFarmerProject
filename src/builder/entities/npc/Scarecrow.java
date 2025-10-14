@@ -40,7 +40,7 @@ public class Scarecrow extends Npc {
             }
             if (bird instanceof Pigeon) {
                 pigeons.add((Pigeon) bird);
-                // I fixed this
+
             }
         }
 
@@ -54,7 +54,7 @@ public class Scarecrow extends Npc {
         }
 
         for (Pigeon pigeon : pigeons) {
-            if (this.distanceFrom(pigeon) > scareRadius) {
+            if (this.distanceFrom(pigeon) < scareRadius) {
                 pigeon.attacking = false;
                 // trigger the scare animation
             }
