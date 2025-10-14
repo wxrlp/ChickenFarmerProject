@@ -66,6 +66,7 @@ public class Pigeon extends Enemy implements Expirable {
             }
         }
         this.move();
+        //TODO: Useless else statements
         if (this.trackedTarget == null
                 && this
                         .attacking) { // if the pigeon has no target, it should go to the center of
