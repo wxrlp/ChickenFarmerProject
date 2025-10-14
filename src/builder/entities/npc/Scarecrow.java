@@ -24,9 +24,7 @@ public class Scarecrow extends Npc {
     }
 
     @Override
-    public void tick(EngineState state) {
-        super.tick(state);
-    }
+    public void tick(EngineState state) {super.tick(state);}
 
     @Override
     public void interact(EngineState state, GameState game) {

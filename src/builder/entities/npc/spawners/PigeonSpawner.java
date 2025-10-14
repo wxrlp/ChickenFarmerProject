@@ -38,7 +38,6 @@ public class PigeonSpawner implements Spawner {
     @Override
     public void tick(EngineState state, GameState game) {
         this.timer.tick();
-
         List<Tile> tiles =
                 game.getWorld()
                         .tileSelector(
