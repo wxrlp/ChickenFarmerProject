@@ -54,7 +54,7 @@ public class GuardBee extends Npc implements Expirable {
     public void updateArtBasedOnDirection() {
         boolean goingUp = (this.getDirection() >= 230 && this.getDirection() < 310);
         boolean goingDown = (this.getDirection() >= 40 && this.getDirection() < 140);
-        boolean goingRight = (this.getDirection() >= 310 && this.getDirection() < 40);
+        boolean goingRight = (this.getDirection() >= 310 || this.getDirection() < 40);
         boolean goingLeft = (this.getDirection() >= 140 && this.getDirection() < 230);
         if (goingDown) {
             this.setSprite(art.getSprite("down"));
@@ -73,19 +73,27 @@ public class GuardBee extends Npc implements Expirable {
         this.move();
 
         if (this.trackedTarget == null) {
+            System.out.println("****1");
             double deltaX = this.spawnX - this.getX();
-            double deltaY = this.spawnY - this.getY();
+            double deltaY = this.spawnY - this.getY() ;
             this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
             return;
         }
         for (Enemy enemy : game.getEnemies().Birds) {
             if (this.distanceFrom(enemy)
                     < 300) { // if a magpie is close enough to a bee it will lock onto it // TODO
+                System.out.println("****2");
                 double deltaX = this.trackedTarget.getX() - this.getX();
                 double deltaY = this.trackedTarget.getY() - this.getY();
+                System.out.println("deltaY*"+deltaY);
+                System.out.println("deltaX*"+deltaX);
                 this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
                 break;
             }
+        }
+
+        if (game.getEnemies().getALl().isEmpty()){
+            this.markForRemoval();
         }
         for (Enemy enemy : game.getEnemies().getALl()) {
             if (this.distanceFrom(enemy) < state.getDimensions().tileSize()) {
@@ -96,7 +104,7 @@ public class GuardBee extends Npc implements Expirable {
 
         this.updateArtBasedOnDirection();
         lifespan.tick();
-        if (lifespan.isFinished()) {
+        if (lifespan.isFinished() && (this.spawnX == this.getX() && this.spawnY == this.getY())) {
             this.markForRemoval();
         }
     }

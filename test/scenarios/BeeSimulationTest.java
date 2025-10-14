@@ -168,8 +168,14 @@ public class BeeSimulationTest {
                 // checking for getting stuck vertically
                 if (prevY == frame.getY()) { // we tick up how many frames in a row did we just see
                     // the same y position
+                    System.out.println("PrevY =" + prevY);
+                    System.out.println("CurrentY =" + frame.getY());
+                    System.out.println("*****");
                     sameYCount += 1;
                 } else {
+                    System.out.println("PrevY =" + prevY);
+                    System.out.println("CurrentY =" + frame.getY());
+                    System.out.println("*****");
                     sameYCount = 0;
                 }
                 prevY = frame.getY();
