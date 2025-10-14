@@ -55,13 +55,14 @@ public class GuardBee extends Npc implements Expirable {
         boolean goingUp = (this.getDirection() >= 230 && this.getDirection() < 310);
         boolean goingDown = (this.getDirection() >= 40 && this.getDirection() < 140);
         boolean goingRight = (this.getDirection() >= 310 && this.getDirection() < 40);
+        boolean goingLeft = (this.getDirection() >= 140 && this.getDirection() < 230);
         if (goingDown) {
             this.setSprite(art.getSprite("down"));
         } else if (goingUp) {
             this.setSprite(art.getSprite("up"));
         } else if (goingRight) {
             this.setSprite(art.getSprite("right"));
-        } else {
+        } else if (goingLeft) {
             this.setSprite(art.getSprite("left"));
         }
     }
