@@ -27,6 +27,7 @@ public class ScarecrowSpawner implements Spawner {
     public void tick(EngineState state, GameState game) {
         this.timer.tick();
         // look at use code to spawn
+        //TODO: refactor extended methods
         if (game.getInventory().getCoins() >= 2 && state.getKeys().isDown('c')) {
             game.getInventory().addCoins(-2);
             game.getNpcs().addNpc(new Scarecrow(game.getPlayer().getX(), game.getPlayer().getY()));
