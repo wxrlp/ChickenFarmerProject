@@ -73,7 +73,7 @@ public class GuardBee extends Npc implements Expirable {
         this.move();
 
         if (this.trackedTarget == null) {
-            System.out.println("****1");
+
             double deltaX = this.spawnX - this.getX();
             double deltaY = this.spawnY - this.getY() ;
             this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
@@ -82,11 +82,8 @@ public class GuardBee extends Npc implements Expirable {
         for (Enemy enemy : game.getEnemies().Birds) {
             if (this.distanceFrom(enemy)
                     < 300) { // if a magpie is close enough to a bee it will lock onto it // TODO
-                System.out.println("****2");
                 double deltaX = this.trackedTarget.getX() - this.getX();
                 double deltaY = this.trackedTarget.getY() - this.getY();
-                System.out.println("deltaY*"+deltaY);
-                System.out.println("deltaX*"+deltaX);
                 this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
                 break;
             }
