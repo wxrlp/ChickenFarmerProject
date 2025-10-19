@@ -2,6 +2,7 @@ package builder.entities.npc.enemies;
 
 import builder.GameState;
 import builder.entities.npc.Expirable;
+import builder.helpers.TargetPlayerHelper;
 import builder.player.Player;
 import builder.ui.SpriteGallery;
 
@@ -51,36 +52,28 @@ public class Magpie extends Enemy implements Expirable {
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
         this.lifespan.tick();
+        int playerX = game.getPlayer().getX();
+        int playerY = game.getPlayer().getY();
+        int tileSize = engine.getDimensions().tileSize();
         if (this.lifespan.isFinished()) {
             this.markForRemoval();
         }
-        if (this.attacking) {
-            double deltaX = trackedTarget.getX() - this.getX();
-            double deltaY = trackedTarget.getY() - this.getY();
-            this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
-            /** target is below */
-            if (trackedTarget.getY() > this.getY()) {
-                this.setSprite(art.getSprite("down"));
-            } else {
-                this.setSprite(art.getSprite("up"));
-            }
+
+        if (attacking) {
+            TargetPlayerHelper.setDirectionAndSpriteTowards(trackedTarget.getX(),
+                    trackedTarget.getY(), attacking, this, art);
         } else {
-            double deltaX = this.spawnX - this.getX();
-            double deltaY = this.spawnY - this.getY();
-            this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
-            if (this.spawnY < this.getY()) {
-                this.setSprite(art.getSprite("up"));
-            } else {
-                this.setSprite(art.getSprite("down"));
-            }
+            TargetPlayerHelper.setDirectionAndSpriteTowards(this.spawnX, this.spawnY,
+                    attacking, this, art);
         }
+
         this.move();
         this.directionalUpdateTimer.tick();
 
         Player player = game.getPlayer();
 
         final boolean hasHitPlayer =
-                this.distanceFrom(player.getX(), player.getY()) < engine.getDimensions().tileSize();
+                this.distanceFrom(player.getX(), player.getY()) < tileSize;
         if (hasHitPlayer && game.getInventory().getCoins() > 0 && this.attacking) {
             game.getInventory().addCoins(-1);
             this.coins += 1;
@@ -101,4 +94,6 @@ public class Magpie extends Enemy implements Expirable {
 
     @Override
     public void interact(EngineState engine, GameState game) {}
+
+
 }

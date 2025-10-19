@@ -2,6 +2,7 @@ package builder.entities.npc.enemies;
 
 import builder.GameState;
 import builder.entities.npc.Expirable;
+import builder.helpers.TargetPlayerHelper;
 import builder.ui.SpriteGallery;
 
 import engine.EngineState;
@@ -43,21 +44,19 @@ public class Eagle extends Enemy implements Expirable {
 
         this.setSprite(art.getSprite("default"));
 
-        setNewDirection(trackedTarget.getX(), trackedTarget.getY());
+        TargetPlayerHelper.setNewDirection(trackedTarget.getX(), trackedTarget.getY(), this);
 
     }
+
+
 
     /**
-     * Sets a new direction for the Eagle to face towards the specified target coordinates.
-     * @param trackedTarget The x-coordinate of the target position.
-     * @param trackedTarget1 The y-coordinate of the target position.
+     * Gets the sprite group representing the Eagle's art.
+     * @return The SpriteGroup for the Eagle.
      */
-    private void setNewDirection(int trackedTarget, int trackedTarget1) {
-        double deltaX = trackedTarget - this.getX();
-        double deltaY = trackedTarget1 - this.getY();
-        this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
+    public static SpriteGroup getArt() {
+        return art;
     }
-
 
     /**
      * Gets the lifespan timer of the Eagle.
@@ -116,9 +115,11 @@ public class Eagle extends Enemy implements Expirable {
 
         // Update sprite based on whether eagle is attacking or returning to spawn
         if (attacking) {
-            setDirectionAndSpriteTowards(trackedTarget.getX(), trackedTarget.getY(), attacking);
+            TargetPlayerHelper.setDirectionAndSpriteTowards(trackedTarget.getX(),
+                    trackedTarget.getY(), attacking, this, art);
         } else {
-            setDirectionAndSpriteTowards(this.spawnX, this.spawnY, attacking);
+            TargetPlayerHelper.setDirectionAndSpriteTowards(this.spawnX, this.spawnY,
+                    attacking, this, art);
         }
 
         // If the eagle is removed from the world before it
@@ -131,27 +132,5 @@ public class Eagle extends Enemy implements Expirable {
         }
     }
 
-    /**
-     * Sets the direction and sprite of the eagle towards a target position.
-     * @param targetX The x-coordinate of the target position.
-     * @param targetY The y-coordinate of the target position.
-     * @param isAttacking Boolean indicating if the eagle is attacking (true) or returning (false).
-     */
-    private void setDirectionAndSpriteTowards(int targetX,int targetY, boolean isAttacking){
-        setNewDirection(targetX, targetY);
-        if (isAttacking){
-            if (targetY > this.getY()) {
-                this.setSprite(art.getSprite("down"));
-            } else {
-                this.setSprite(art.getSprite("up"));
-            }
-        }else{
-            if (targetY < this.getY()) {
-                this.setSprite(art.getSprite("up"));
-            } else {
-                this.setSprite(art.getSprite("down"));
-            }
-        }
 
-    }
 }
