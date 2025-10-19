@@ -8,9 +8,9 @@ import engine.timing.TickTimer;
 
 public class MagpieSpawner implements Spawner {
 
-    private int x = 0;
-    private int y = 0;
-    private TickTimer timer;
+    private int x;
+    private int y;
+    private final TickTimer timer;
 
     public MagpieSpawner(int x, int y) {
         this.x = x;
@@ -35,7 +35,7 @@ public class MagpieSpawner implements Spawner {
         if (this.getTimer().isFinished()) {
             game.getEnemies().spawnX = this.getX();
             game.getEnemies().spawnY = this.getY();
-            game.getEnemies().Birds.add(game.getEnemies().mkM(game.getPlayer()));
+            game.getEnemies().Birds.add(game.getEnemies().makeMagpie(game.getPlayer()));
         }
     }
 

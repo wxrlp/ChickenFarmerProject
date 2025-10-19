@@ -8,9 +8,9 @@ import engine.timing.TickTimer;
 
 public class EagleSpawner implements Spawner {
 
-    private int x = 0;
-    private int y = 0;
-    private TickTimer timer;
+    private int x;
+    private int y;
+    private final TickTimer timer;
 
     public EagleSpawner(int x, int y) {
         this.x = x;
@@ -35,7 +35,7 @@ public class EagleSpawner implements Spawner {
         if (this.getTimer().isFinished()) {
             game.getEnemies().spawnX = this.getX();
             game.getEnemies().spawnY = this.getY();
-            game.getEnemies().Birds.add(game.getEnemies().mkE(game.getPlayer()));
+            game.getEnemies().Birds.add(game.getEnemies().makeEagle(game.getPlayer()));
         }
     }
 

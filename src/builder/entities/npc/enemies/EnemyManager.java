@@ -24,6 +24,7 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
 
     public EnemyManager(Dimensions dimensions) {}
 
+    /** Cleans up any birds that are marked for removal. */
     public void cleanup() {
         for (int i = this.Birds.size() - 1; i >= 0; i -= 1) {
             if (this.Birds.get(i).isMarkedForRemoval()) {
@@ -32,30 +33,53 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
         }
     }
 
-    /**
+    /** Adds a spawner to the list of spawners.
      * @param spawner
      */
     public void add(Spawner spawner) {
         this.spawners.add(spawner);
     }
 
-    public Magpie mkM(Player player) {
+    /**
+     * Adds a new Magpie targeting the given player to the list of birds.
+     *
+     * @param player The player to target.
+     * @return The created Magpie.
+     */
+    public Magpie makeMagpie(Player player) {
         final Magpie magpie = new Magpie(this.spawnX, this.spawnY, player);
         this.Birds.add(magpie);
         return magpie;
     }
 
-    public Pigeon mkP(HasPosition hasPosition) {
-        final Pigeon pigeon = new Pigeon(this.spawnX, this.spawnX, hasPosition);
+    /**
+     * Adds a new Pigeon targeting the given HasPosition to the list of birds.
+     *
+     * @param hasPosition The HasPosition to target.
+     * @return The created Pigeon.
+     */
+    public Pigeon makePigeon(HasPosition hasPosition) {
+        final Pigeon pigeon = new Pigeon(this.spawnX, this.spawnY, hasPosition);
         this.Birds.add(pigeon);
         return pigeon;
     }
 
-    public Eagle mkE(Player player) {
-        final Eagle eagle = new Eagle(this.spawnX, this.spawnY, player);
-        return eagle;
+    /**
+     * Adds a new Eagle targeting the given player to the list of birds.
+     *
+     * @param player The player to target.
+     * @return The created Eagle.
+     */
+    public Eagle makeEagle(Player player) {
+        return new Eagle(this.spawnX, this.spawnY, player);
     }
 
+    /**
+     * @param state The state of the engine, including the mouse, keyboard information and
+     *     dimension. Useful for processing keyboard presses or mouse movement.
+     * @param game The state of the game, including the player and world. Can be used to query or
+     *     update the game state.
+     */
     @Override
     public void tick(EngineState state, GameState game) {
         this.cleanup();
@@ -63,20 +87,12 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
             spawner.tick(state, game);
         }
         for (Enemy bird : Birds) {
-            if (bird instanceof Magpie temp) {
-                temp.tick(state, game);
-            }
-            if (bird instanceof Eagle temp) {
-                temp.tick(state, game);
-            }
-            if (bird instanceof Pigeon temp) {
-                temp.tick(state, game);
-            }
+            bird.tick(state, game);
         }
     }
 
     /**
-     * Get all {@link Magpie}s positions from the enemy manager.
+     * Get all Magpies' positions from the enemy manager.
      *
      * @return all {@link Magpie}s positions from the enemy manager.
      */
@@ -105,6 +121,11 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
         /* @todo cleanup */
     }
 
+    /**
+     * A collection of birds to render.
+     *
+     * @return The list of bird renderables.
+     */
     @Override
     public List<Renderable> render() {
         return new ArrayList<>(this.Birds);

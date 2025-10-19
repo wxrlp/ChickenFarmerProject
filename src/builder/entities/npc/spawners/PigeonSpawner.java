@@ -14,8 +14,8 @@ import java.util.List;
 
 public class PigeonSpawner implements Spawner {
 
-    private int x = 0;
-    private int y = 0;
+    private int x;
+    private int y;
     private final RepeatingTimer timer;
 
     public PigeonSpawner(int x, int y) {
@@ -62,7 +62,7 @@ public class PigeonSpawner implements Spawner {
             if (this.getTimer().isFinished()) {
                 game.getEnemies().spawnX = this.getX();
                 game.getEnemies().spawnY = this.getY();
-                game.getEnemies().Birds.add(game.getEnemies().mkP(closest));
+                game.getEnemies().Birds.add(game.getEnemies().makePigeon(closest));
             }
         }
     }
