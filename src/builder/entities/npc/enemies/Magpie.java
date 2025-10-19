@@ -52,8 +52,6 @@ public class Magpie extends Enemy implements Expirable {
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
         this.lifespan.tick();
-        int playerX = game.getPlayer().getX();
-        int playerY = game.getPlayer().getY();
         int tileSize = engine.getDimensions().tileSize();
         if (this.lifespan.isFinished()) {
             this.markForRemoval();
