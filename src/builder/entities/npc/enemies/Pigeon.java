@@ -49,63 +49,54 @@ public class Pigeon extends Enemy implements Expirable {
         this.lifespan = timer;
     }
 
+
+    private void updateReturnSprite() {
+        if (this.spawnY < this.getY()) {
+            this.setSprite(art.getSprite("up"));
+        } else {
+            this.setSprite(art.getSprite("down"));
+        }
+    }
+
+    private void returnToSpawn(EngineState engine) {
+        double deltaX = (this.spawnX - this.getX());
+        double deltaY = (this.spawnY - this.getY());
+        this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
+
+        if (this.distanceFrom(this.spawnX, this.spawnY) < engine.getDimensions().tileSize()) {
+            this.markForRemoval();
+        }
+
+        updateReturnSprite();
+    }
+
     @Override
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
         if (!this.attacking) {
-            double deltaX = (this.spawnX - this.getX());
-            double deltaY = (this.spawnY - this.getY());
-            this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
-
-            if (this.distanceFrom(this.spawnX, this.spawnY)
-                    < engine.getDimensions().tileSize()) { // get close to spawn
-                this.markForRemoval();
-            }
-            if (this.spawnY < this.getY()) {
-                this.setSprite(art.getSprite("up"));
-            } else {
-                this.setSprite(art.getSprite("down"));
-            }
+            returnToSpawn(engine);
         }
         this.move();
         //TODO: Useless else statements
         if (this.trackedTarget == null
-                && this
-                        .attacking) { // if the pigeon has no target, it should go to the center of
+                && this.attacking) { // if the pigeon has no target, it should go to the center of
                                       // the screen if its hunting
-            double deltaX = ((double) engine.getDimensions().windowSize() / 2 - this.getX());
-            double deltaY = ((double) engine.getDimensions().windowSize() / 2 - this.getY());
-            this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
-            if (trackedTarget.getY() > this.getY()) {
-                this.setSprite(art.getSprite("down"));
-            } else {
-                this.setSprite(art.getSprite("up"));
-            }
-        } else {
-            // do nothing
+            returnToSpawn(engine);
         }
         if (this.trackedTarget != null && this.attacking) {
             double deltaX = (this.trackedTarget.getX() - this.getX());
             double deltaY = (this.trackedTarget.getY() - this.getY());
             this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
-        } else {
-            // do nothing
         }
         this.lifespan.tick();
         if (this.lifespan.isFinished()) {
             this.markForRemoval();
-        } else {
-            // do nothing
         }
         if (!attacking) {
             if (this.distanceFrom(spawnX, spawnY) < engine.getDimensions().tileSize()) {
                 this.markForRemoval();
             }
-            if (this.spawnY < this.getY()) {
-                this.setSprite(art.getSprite("up"));
-            } else {
-                this.setSprite(art.getSprite("down"));
-            }
+            updateReturnSprite();
         }
 
         List<Tile> tiles =
@@ -115,13 +106,11 @@ public class Pigeon extends Enemy implements Expirable {
                                     for (Entity entity : tile.getStackedEntities()) {
                                         if (entity instanceof Cabbage) {
                                             return true;
-                                        } else {
-                                            // do nothing
                                         }
                                     }
                                     return false;
                                 });
-        if (tiles.size() > 0) {
+        if (!tiles.isEmpty()) {
             int distance = this.distanceFrom(tiles.getFirst());
             Tile closest = tiles.getFirst();
             for (Tile tile : tiles) {
