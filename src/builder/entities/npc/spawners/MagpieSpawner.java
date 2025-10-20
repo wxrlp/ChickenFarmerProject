@@ -36,6 +36,7 @@ public class MagpieSpawner implements Spawner {
             game.getEnemies().spawnX = this.getX();
             game.getEnemies().spawnY = this.getY();
             game.getEnemies().Birds.add(game.getEnemies().makeMagpie(game.getPlayer()));
+
         }
     }
 
