@@ -12,6 +12,7 @@ import engine.game.Entity;
 import engine.game.HasPosition;
 import engine.timing.FixedTimer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pigeon extends Enemy implements Expirable {
@@ -19,7 +20,7 @@ public class Pigeon extends Enemy implements Expirable {
     private static final SpriteGroup art = SpriteGallery.pigeon;
     private FixedTimer lifespan = new FixedTimer(3000);
     private HasPosition trackedTarget;
-    public Boolean attacking = true;
+    public boolean attacking = true;
     private int spawnX = 0;
     private int spawnY = 0;
 
@@ -70,14 +71,28 @@ public class Pigeon extends Enemy implements Expirable {
         updateReturnSprite();
     }
 
+
+    private List<Tile> findTilesWithCabbage(GameState game) {
+        return game.getWorld()
+                .tileSelector(
+                        tile -> {
+                            for (Entity entity : tile.getStackedEntities()) {
+                                if (entity instanceof Cabbage) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                        );
+    }
     @Override
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
+        int tileSize = engine.getDimensions().tileSize();
         if (!this.attacking) {
             returnToSpawn(engine);
         }
         this.move();
-        //TODO: Useless else statements
         if (this.trackedTarget == null
                 && this.attacking) { // if the pigeon has no target, it should go to the center of
                                       // the screen if its hunting
@@ -93,48 +108,42 @@ public class Pigeon extends Enemy implements Expirable {
             this.markForRemoval();
         }
         if (!attacking) {
-            if (this.distanceFrom(spawnX, spawnY) < engine.getDimensions().tileSize()) {
+            if (this.distanceFrom(spawnX, spawnY) < tileSize) {
                 this.markForRemoval();
             }
             updateReturnSprite();
         }
 
-        List<Tile> tiles =
-                game.getWorld()
-                        .tileSelector(
-                                tile -> {
-                                    for (Entity entity : tile.getStackedEntities()) {
-                                        if (entity instanceof Cabbage) {
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                                });
+        List<Tile> tiles = findTilesWithCabbage(game);
+        attackCabbage(tileSize, tiles);
+
+    }
+
+    private void attackCabbage(int tileSize, List<Tile> tiles){
         if (!tiles.isEmpty()) {
             int distance = this.distanceFrom(tiles.getFirst());
             Tile closest = tiles.getFirst();
             for (Tile tile : tiles) {
                 if (this.distanceFrom(tile) < distance) {
                     closest = tile;
-                } else {
-                    // do nothing
                 }
             }
             this.trackedTarget = closest;
 
             if (this.attacking
-                    && this.distanceFrom(this.trackedTarget) < engine.getDimensions().tileSize()) {
+                    && this.distanceFrom(this.trackedTarget) < tileSize) {
                 for (Entity entity : closest.getStackedEntities()) {
                     if (entity instanceof Cabbage cabbage) {
                         cabbage.markForRemoval();
                         this.attacking = false;
-                    } else {
-                        // do nothing
                     }
                 }
             }
         } else { // no cabbages to get
             this.attacking = false;
         }
+
+        }
+
     }
-}
+
