@@ -1,12 +1,13 @@
-package builder.entities.npc.spawners;
+package builder.helpers;
 
 import builder.GameState;
+import builder.entities.npc.spawners.Spawner;
 import engine.EngineState;
 import engine.game.HasPosition;
 import engine.timing.RepeatingTimer;
 import engine.timing.TickTimer;
 
-public class HelperSpawner implements Spawner{
+public class HelperSpawner implements Spawner {
     private int x;
     private int y;
     protected final TickTimer timer;

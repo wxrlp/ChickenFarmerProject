@@ -2,12 +2,12 @@ package builder.entities.npc.spawners;
 
 import builder.GameState;
 
+import builder.helpers.HelperSpawner;
 import engine.EngineState;
 import engine.timing.RepeatingTimer;
-import engine.timing.TickTimer;
 
 public class EagleSpawner extends HelperSpawner implements Spawner {
-    private static final int DEFAULT_SPAWN_INTERVAL = 1000;
+    private static final int DEFAULT_SPAWN_INTERVAL = SpawnerBaseValues.EAGLE_SPAWN_INTERVAL;
 
     public EagleSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);

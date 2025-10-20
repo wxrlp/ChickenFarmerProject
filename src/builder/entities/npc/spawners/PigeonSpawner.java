@@ -4,19 +4,15 @@ import builder.GameState;
 import builder.entities.resources.Cabbage;
 import builder.entities.tiles.Tile;
 
-import builder.world.World;
+import builder.helpers.HelperSpawner;
 import engine.EngineState;
 import engine.game.Entity;
-import engine.game.HasPosition;
 import engine.timing.RepeatingTimer;
-import engine.timing.TickTimer;
 
 import java.util.List;
 
 public class PigeonSpawner extends HelperSpawner implements Spawner {
-
-    private static final int DEFAULT_SPAWN_INTERVAL = 1000;
-
+    private static final int DEFAULT_SPAWN_INTERVAL = SpawnerBaseValues.PIGEON_SPAWN_INTERVAL;
     public PigeonSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);
     }
