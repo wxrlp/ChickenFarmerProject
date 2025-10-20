@@ -75,6 +75,14 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
         return new Eagle(this.spawnX, this.spawnY, player);
     }
 
+    public void spawnEagle(int x, int y, Player player) {
+        this.spawnX = x;
+        this.spawnY = y;
+        Eagle eagle = makeEagle(player);
+        this.Birds.add(eagle);
+    }
+
+
     /**
      * @param state The state of the engine, including the mouse, keyboard information and
      *     dimension. Useful for processing keyboard presses or mouse movement.
