@@ -49,15 +49,6 @@ public class Eagle extends Enemy implements Expirable {
     }
 
 
-
-    /**
-     * Gets the sprite group representing the Eagle's art.
-     * @return The SpriteGroup for the Eagle.
-     */
-    public static SpriteGroup getArt() {
-        return art;
-    }
-
     /**
      * Gets the lifespan timer of the Eagle.
      * @return The FixedTimer representing the lifespan of the Eagle.
