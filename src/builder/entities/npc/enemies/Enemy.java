@@ -18,15 +18,7 @@ public class Enemy extends Npc {
         super(x, y);
     }
 
-    /**
-     * Tick method for the enemy
-     * @param state The current engine state
-     * @param game The current game state
-     */
-    @Override
-    public void tick(EngineState state, GameState game) {
-        super.tick(state, game);
-    }
+
 
     /**
      * Interaction method for the enemy
@@ -34,5 +26,5 @@ public class Enemy extends Npc {
      * @param game The current game state
      */
     @Override
-    public void interact(EngineState state, GameState game) {}
+    public void interact(EngineState state, GameState game) {};
 }

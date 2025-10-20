@@ -65,7 +65,8 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
     }
 
     /**
-     * Adds a new Eagle targeting the given player to the list of birds.
+     * Returns a new Eagle targeting the given player.
+     * Eagles are immune to scarecrows, hence they are not added to the Birds list here.
      *
      * @param player The player to target.
      * @return The created Eagle.
