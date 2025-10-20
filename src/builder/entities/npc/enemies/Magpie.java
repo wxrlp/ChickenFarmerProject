@@ -22,7 +22,7 @@ public class Magpie extends Enemy implements Expirable {
     private static final SpriteGroup art = SpriteGallery.magpie;
     private FixedTimer lifespan = new FixedTimer(10000);
     public HasPosition trackedTarget;
-    public Boolean attacking;
+    private boolean attacking;
     public int coins = 0;
 
     private RepeatingTimer directionalUpdateTimer = new RepeatingTimer(30);
@@ -32,14 +32,14 @@ public class Magpie extends Enemy implements Expirable {
 
     /**
      * Constructs a Magpie enemy at the specified coordinates, tracking the given target.
-     * @param xCoordinate The x-coordinate of the magpie's spawn position.
-     * @param yCoordinate The y-coordinate of the magpie's spawn position.
+     * @param x The x-coordinate of the magpie's spawn position.
+     * @param y The y-coordinate of the magpie's spawn position.
      * @param trackedTarget The target that the magpie will track and attack.
      */
-    public Magpie(int xCoordinate, int yCoordinate, HasPosition trackedTarget) {
-        super(xCoordinate, yCoordinate);
-        this.spawnX = xCoordinate;
-        this.spawnY = yCoordinate;
+    public Magpie(int x, int y, HasPosition trackedTarget) {
+        super(x, y);
+        this.spawnX = x;
+        this.spawnY = y;
         this.trackedTarget = trackedTarget;
         this.setSprite(art.getSprite("down"));
         this.attacking = true;
@@ -52,6 +52,10 @@ public class Magpie extends Enemy implements Expirable {
     /** Gets the lifespan of the Magpie.
      * @return The FixedTimer representing the Magpie's lifespan.
      */
+
+    public void setAttacking(boolean attackStatus){
+        this.attacking = attackStatus;
+    }
     @Override
     public FixedTimer getLifespan() {
         return lifespan;
