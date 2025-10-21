@@ -15,9 +15,9 @@ import engine.timing.TickTimer;
  */
 public class ScarecrowSpawner implements Spawner {
 
-    private int x = 0;
-    private int y = 0;
-    private RepeatingTimer timer = new RepeatingTimer(300);
+    private int x;
+    private int y;
+    private final RepeatingTimer timer = new RepeatingTimer(300);
 
     /**
      * Creates a new Scarecrow spawner at the given coordinates
