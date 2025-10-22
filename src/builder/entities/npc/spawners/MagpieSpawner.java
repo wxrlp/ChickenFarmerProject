@@ -34,6 +34,9 @@ public class MagpieSpawner extends HelperSpawner implements Spawner {
     public void tick(EngineState state, GameState game) {
         this.timer.tick();
         if (this.getTimer().isFinished()) {
+            if (game.getEnemies() == null) {
+                return;
+            }
             game.getEnemies().spawnX = this.getX();
             game.getEnemies().spawnY = this.getY();
             game.getEnemies().Birds.add(game.getEnemies().makeMagpie(game.getPlayer()));
