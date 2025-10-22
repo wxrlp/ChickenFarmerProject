@@ -5,6 +5,7 @@ import builder.entities.npc.enemies.EnemyManager;
 import builder.entities.npc.spawners.EagleSpawner;
 import builder.entities.npc.spawners.MagpieSpawner;
 import builder.entities.npc.spawners.PigeonSpawner;
+import builder.entities.npc.spawners.Spawner;
 import builder.entities.tiles.Dirt;
 import builder.entities.tiles.Tile;
 import builder.inventory.*;
@@ -78,6 +79,8 @@ public class JavaBeanFarm implements Game {
         return sb.toString();
     }
 
+
+
     /**
      * Constructs a new JavaBean Farm game using the given
      * dimensions, mapPath and detailPath
@@ -106,30 +109,15 @@ public class JavaBeanFarm implements Game {
                 playerDetails.getY());
         this.npcs = new NpcManager();
         this.enemies = new EnemyManager(dimensions);
-        final List<SpawnerDetails> magpieSpawnPoints =
-                OverlayBuilder.getMagpieSpawnDetailsFromString(
-                        detailsContent);
-        for (SpawnerDetails spawnerDetails : magpieSpawnPoints) {
-            this.enemies.add(new MagpieSpawner(
-                    spawnerDetails.getX(), spawnerDetails.getY(),
-                    spawnerDetails.getDuration()));
-        }
-        final List<SpawnerDetails> eagleSpawnPoints =
-                OverlayBuilder.getEagleSpawnDetailsFromString(
-                        detailsContent);
-        for (SpawnerDetails spawnerDetails : eagleSpawnPoints) {
-            this.enemies.add(new EagleSpawner(
-                    spawnerDetails.getX(), spawnerDetails.getY(),
-                    spawnerDetails.getDuration()));
-        }
-        final List<SpawnerDetails> pigeonSpawnPoints =
-                OverlayBuilder.getPigeonSpawnDetailsFromString(
-                        detailsContent);
-        for (SpawnerDetails spawnerDetails : pigeonSpawnPoints) {
-            this.enemies.add(new PigeonSpawner(
-                    spawnerDetails.getX(), spawnerDetails.getY(),
-                    spawnerDetails.getDuration()));
-        }
+        loadSpawners(
+                OverlayBuilder.getMagpieSpawnDetailsFromString(detailsContent),
+                MagpieSpawner::new);
+        loadSpawners(
+                OverlayBuilder.getEagleSpawnDetailsFromString(detailsContent),
+                EagleSpawner::new);
+        loadSpawners(
+                OverlayBuilder.getPigeonSpawnDetailsFromString(detailsContent),
+                PigeonSpawner::new);
 
         String worldContent = readAllReader(mapReader);
         this.world = WorldBuilder.fromTiles(
@@ -178,6 +166,23 @@ public class JavaBeanFarm implements Game {
         this(
                 dimensions, new FileReader(mapFile),
                 new FileReader(detailsFile));
+    }
+
+
+    @FunctionalInterface
+    private interface SpawnerFactory {
+        Spawner create(int x, int y, int duration);
+    }
+
+    private void loadSpawners(
+            List<SpawnerDetails> spawnerDetails,
+            SpawnerFactory factory) {
+        for (SpawnerDetails details : spawnerDetails) {
+            this.enemies.add(factory.create(
+                    details.getX(),
+                    details.getY(),
+                    details.getDuration()));
+        }
     }
 
     /**
