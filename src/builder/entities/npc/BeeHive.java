@@ -10,7 +10,13 @@ import engine.timing.RepeatingTimer;
 
 import java.util.ArrayList;
 
-/** Spawns bees it fires at enemy's within a set range */
+/** Spawns bees it fires at enemy's within a set range
+ * A bee hive should reload every 240 ticks but if the player is standing on it then it should
+ * increase the rate by 3 (so if the player stands on it for the whole time, it will
+ * reload in 80 ticks).
+ * If a bird comes within 350 pixels of the beehive, a single
+ * guard bee will be spawned if it is loaded.
+ * */
 public class BeeHive extends Npc {
 
     public static final int DETECTION_DISTANCE = 350;
@@ -28,12 +34,14 @@ public class BeeHive extends Npc {
         this.setSpeed(0);
     }
 
+    /** Progress the state of the beehive, updating how it is rendered as required. */
     @Override
     public void tick(EngineState state, GameState game) {
         super.tick(state);
         this.timer.tick();
     }
 
+    /** Interact with the beehive to increase spawn rate of bees at enemies within range */
     @Override
     public void interact(EngineState state, GameState game) {
         super.interact(state, game);
@@ -41,13 +49,17 @@ public class BeeHive extends Npc {
         timer.tick();
         Npc npc = this.checkAndSpawnBee(game.getEnemies().Birds);
         if (npc != null) {
-            game.getNpcs().npcs.add(npc);
+            game.getNpcs().addNpc(npc);
         }
         if (timer.isFinished()) {
             this.loaded = true;
         }
     }
-
+/** Check for enemies within range and spawn a bee if loaded
+     *
+     * @param targets The list of enemies to check distance from
+     * @return A guard bee if an enemy is within range and the beehive is loaded, null otherwise
+     */
     public Npc checkAndSpawnBee(ArrayList<Enemy> targets) {
         for (Enemy enemy : targets) {
             if (this.distanceFrom(enemy) < DETECTION_DISTANCE && this.loaded) {
