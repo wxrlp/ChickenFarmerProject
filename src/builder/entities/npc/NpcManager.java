@@ -54,7 +54,7 @@ public class NpcManager implements Interactable, Tickable, RenderableGroup {
     private ArrayList<Interactable> getInteractables() {
         final ArrayList<Interactable> interactables = new ArrayList<>();
         for (Npc npc : npcs) {
-            if (npc instanceof Interactable) {
+            if (npc != null) {
                 interactables.add(npc);
             }
         }
