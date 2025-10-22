@@ -26,21 +26,22 @@ public class GuardBee extends Npc implements Expirable {
     private static final int DOWN_MIN = 40;
     private static final int DOWN_MAX = 140;
     private static final int RIGHT_MIN = 310;
-    private static final int RIGHT_MAX = 40;  // Wraps around 0
+    private static final int RIGHT_MAX = 40;
+    private static final int LOCK_ON_RANGE = 300;// Wraps around 0
 
 
     /**
-     * @param xCoordinate horizontal spawning position
-     * @param yCoordinate vertical spawning position
+     * @param x horizontal spawning position
+     * @param y vertical spawning position
      * @param trackedTarget target with a position we want this to track
      */
-    public GuardBee(int xCoordinate, int yCoordinate, HasPosition trackedTarget) {
-        super(xCoordinate, yCoordinate);
+    public GuardBee(int x, int y, HasPosition trackedTarget) {
+        super(x, y);
         this.setSprite(art.getSprite("default"));
         this.trackedTarget = trackedTarget;
 
-        this.spawnX = xCoordinate;
-        this.spawnY = yCoordinate;
+        this.spawnX = x;
+        this.spawnY = y;
 
         double deltaX = trackedTarget.getX() - this.getX();
         double deltaY = trackedTarget.getY() - this.getY();
@@ -60,9 +61,7 @@ public class GuardBee extends Npc implements Expirable {
         this.lifespan = timer;
     }
 
-    private enum CardinalDirection {
-        UP, DOWN, LEFT, RIGHT
-    }
+
 
 
     /** Update the sprite of the GuardBee based on its current direction */
@@ -94,7 +93,7 @@ public class GuardBee extends Npc implements Expirable {
         }
         for (Enemy enemy : game.getEnemies().Birds) {
             if (this.distanceFrom(enemy)
-                    < 300) { // if a magpie is close enough to a bee it will lock onto it // TODO
+                    < LOCK_ON_RANGE) { // if a magpie is close enough to a bee it will lock onto it // TODO
                 double deltaX = this.trackedTarget.getX() - this.getX();
                 double deltaY = this.trackedTarget.getY() - this.getY();
                 this.setDirection((int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
@@ -118,4 +117,5 @@ public class GuardBee extends Npc implements Expirable {
             this.markForRemoval();
         }
     }
+
 }
