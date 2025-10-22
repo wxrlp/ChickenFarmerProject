@@ -68,13 +68,14 @@ public class JavaBeanFarm implements Game {
     private final List<Overlay> overlays = new ArrayList<>();
 
     private String readAllReader(Reader reader) throws IOException {
-        BufferedReader br = new BufferedReader(reader);
-        StringJoiner sb = new StringJoiner(System.lineSeparator());
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.add(line);
+        try (BufferedReader br = new BufferedReader(reader)) {
+            StringJoiner sb = new StringJoiner(System.lineSeparator());
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.add(line);
+            }
+            return sb.toString();
         }
-        return sb.toString();
     }
 
 
