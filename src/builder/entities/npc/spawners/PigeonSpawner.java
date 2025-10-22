@@ -15,23 +15,37 @@ import java.util.List;
 /**
  * Spawner that spawns pigeons when there are cabbages on the map.
  */
-public class PigeonSpawner extends HelperSpawner implements Spawner {
-    private static final int DEFAULT_SPAWN_INTERVAL = SpawnerBaseValues.PIGEON_SPAWN_INTERVAL;
+public
+class PigeonSpawner extends HelperSpawner implements Spawner {
+    private static final int DEFAULT_SPAWN_INTERVAL =
+            SpawnerBaseValues.PIGEON_SPAWN_INTERVAL;
 
-    /** Creates a pigeon spawner at the given coordinates with the default spawn interval. */
-    public PigeonSpawner(int x, int y) {
+    /**
+     * Creates a pigeon spawner at the given coordinates with the
+     * default spawn interval.
+     */
+    public
+    PigeonSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);
     }
 
-    /** Creates a pigeon spawner at the given coordinates with a custom spawn interval. */
-    public PigeonSpawner(int x, int y, int duration) {
+    /**
+     * Creates a pigeon spawner at the given coordinates with a
+     * custom spawn interval.
+     */
+    public
+    PigeonSpawner(int x, int y, int duration) {
         super(x, y, new RepeatingTimer(duration));
     }
 
 
-    /**  * Spawns a pigeon targeting the closest cabbage if any cabbages exist on the map. */
+    /**
+     * Spawns a pigeon targeting the closest cabbage if any
+     * cabbages exist on the map.
+     */
     @Override
-    public void tick(EngineState state, GameState game) {
+    public
+    void tick(EngineState state, GameState game) {
         EnemyManager enemies = game.getEnemies();
         timer.tick();
         // Select all tiles that have cabbages on them
@@ -39,7 +53,8 @@ public class PigeonSpawner extends HelperSpawner implements Spawner {
                 game.getWorld()
                         .tileSelector(
                                 tile -> {
-                                    for (Entity entity : tile.getStackedEntities()) {
+                                    for (Entity entity :
+                                            tile.getStackedEntities()) {
                                         if (entity instanceof Cabbage) {
                                             return true;
                                         }
@@ -57,17 +72,19 @@ public class PigeonSpawner extends HelperSpawner implements Spawner {
                 }
             }
 
-            // Spawn a pigeon targeting the closest cabbage if the timer is finished
+            // Spawn a pigeon targeting the closest cabbage if the
+            // timer is finished
             if (this.getTimer().isFinished()) {
                 enemies.spawnX = this.getX();
                 enemies.spawnY = this.getY();
-                enemies.Birds.add(game.getEnemies().makePigeon(closest));
+                enemies.Birds.add(
+                        game.getEnemies().makePigeon(closest));
             }
         }
     }
 
 
-    }
+}
 
 
 

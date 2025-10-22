@@ -9,70 +9,107 @@ import engine.game.Entity;
 import engine.game.HasPosition;
 
 /**
- * An Npc is a non-player character that can interact with the player and the game world.
+ * An Npc is a non-player character that can interact with the
+ * player and the game world.
  */
-public class Npc extends Entity implements Interactable, Tickable, Directable {
+public
+class Npc extends Entity implements Interactable, Tickable,
+        Directable {
 
     private int direction = 0;
     private double speed = 1;
 
-    /** Creates a new Npc at the given coordinates */
-    public Npc(int x, int y) {
+    /**
+     * Creates a new Npc at the given coordinates
+     */
+    public
+    Npc(int x, int y) {
         super(x, y);
     }
 
-    /** Get the speed of {@link Npc} */
-    public double getSpeed() {
+    /**
+     * Get the speed of {@link Npc}
+     */
+    public
+    double getSpeed() {
         return speed;
     }
 
-    /** Set the speed of {@link Npc} */
-    public void setSpeed(double speed) {
+    /**
+     * Set the speed of {@link Npc}
+     */
+    public
+    void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    /** Get the direction of {@link Npc} */
-    public int getDirection() {
+    /**
+     * Get the direction of {@link Npc}
+     */
+    public
+    int getDirection() {
         return this.direction;
     }
 
-    /** Set the direction of {@link Npc} */
-    public void setDirection(int direction) {
+    /**
+     * Set the direction of {@link Npc}
+     */
+    public
+    void setDirection(int direction) {
         this.direction = direction;
     }
 
-    /** Adjust the X and Y of {@link Npc} */
-    public void move() {
-        final int deltaX = (int) Math.round(Math.cos(Math.toRadians(this.direction)) * this.speed);
-        final int deltaY = (int) Math.round(Math.sin(Math.toRadians(this.direction)) * this.speed);
+    /**
+     * Adjust the X and Y of {@link Npc}
+     */
+    public
+    void move() {
+        final int deltaX = (int) Math.round(
+                Math.cos(Math.toRadians(this.direction)) *
+                        this.speed);
+        final int deltaY = (int) Math.round(
+                Math.sin(Math.toRadians(this.direction)) *
+                        this.speed);
         this.setX(this.getX() + deltaX);
         this.setY(this.getY() + deltaY);
     }
 
-    /** Tick method for the npc */
+    /**
+     * Tick method for the npc
+     */
     @Override
-    public void tick(EngineState state) {
+    public
+    void tick(EngineState state) {
         this.move();
     }
 
-    /** Tick method for the npc */
+    /**
+     * Tick method for the npc
+     */
     @Override
-    public void tick(EngineState state, GameState game) {
+    public
+    void tick(EngineState state, GameState game) {
         tick(state);
     }
 
-    /** Interaction method for the npc */
+    /**
+     * Interaction method for the npc
+     */
     @Override
-    public void interact(EngineState state, GameState game) {}
+    public
+    void interact(EngineState state, GameState game) {
+    }
 
 
     /**
      * Return how far away this npc is from the given position
      *
-     * @param position the position we are measuring to from this npc's position!
+     * @param position the position we are measuring to from this
+     *                 npc's position!
      * @return integer representation for how far apart they are
      */
-    public int distanceFrom(HasPosition position) {
+    public
+    int distanceFrom(HasPosition position) {
         return distanceFrom(position.getX(), position.getY());
     }
 
@@ -83,7 +120,8 @@ public class Npc extends Entity implements Interactable, Tickable, Directable {
      * @param yCoordinate - y coordinate
      * @return integer representation for how far apart they are
      */
-    public int distanceFrom(int xCoordinate, int yCoordinate) {
+    public
+    int distanceFrom(int xCoordinate, int yCoordinate) {
         int deltaX = xCoordinate - this.getX();
         int deltaY = yCoordinate - this.getY();
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
