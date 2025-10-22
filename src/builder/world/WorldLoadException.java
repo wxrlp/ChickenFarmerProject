@@ -14,8 +14,7 @@ package builder.world;
  *
  * @provided
  */
-public
-class WorldLoadException extends Exception {
+public class WorldLoadException extends Exception {
     /**
      * The world tile row number where loading failed.
      */
@@ -32,8 +31,7 @@ class WorldLoadException extends Exception {
      *
      * @param message Explanation of the problem that occurred.
      */
-    public
-    WorldLoadException(String message) {
+    public WorldLoadException(String message) {
         super(message);
     }
 
@@ -46,8 +44,7 @@ class WorldLoadException extends Exception {
      *                Indicates the issue occurs on line row +
      *                1.
      */
-    public
-    WorldLoadException(String message, int row) {
+    public WorldLoadException(String message, int row) {
         super(message);
         this.row = row;
     }
@@ -64,16 +61,14 @@ class WorldLoadException extends Exception {
      *                Indicates the issue occurs at
      *                character column + 1.
      */
-    public
-    WorldLoadException(String message, int row, int column) {
+    public WorldLoadException(String message, int row, int column) {
         super(message);
         this.row = row;
         this.col = column;
     }
 
     @Override
-    public
-    String getMessage() {
+    public String getMessage() {
         if (row != -1 && col != -1) {
             return super.getMessage() + " on line " + (row + 1) +
                     ", character " + (col + 1);

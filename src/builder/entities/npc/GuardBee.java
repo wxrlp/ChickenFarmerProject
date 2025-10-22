@@ -14,8 +14,7 @@ import engine.timing.FixedTimer;
  * This is our projectile class,
  * basically a bullet.
  */
-public
-class GuardBee extends Npc implements Expirable {
+public class GuardBee extends Npc implements Expirable {
 
     private final int spawnX;
     private final int spawnY;
@@ -38,8 +37,7 @@ class GuardBee extends Npc implements Expirable {
      * @param trackedTarget target with a position we want this to
      *                      track
      */
-    public
-    GuardBee(int x, int y, HasPosition trackedTarget) {
+    public GuardBee(int x, int y, HasPosition trackedTarget) {
         super(x, y);
         this.setSprite(art.getSprite("default"));
         this.trackedTarget = trackedTarget;
@@ -58,8 +56,7 @@ class GuardBee extends Npc implements Expirable {
      * Return the lifespan timer of this GuardBee
      */
     @Override
-    public
-    FixedTimer getLifespan() {
+    public FixedTimer getLifespan() {
         return lifespan;
     }
 
@@ -67,8 +64,7 @@ class GuardBee extends Npc implements Expirable {
      * Set the lifespan timer of this GuardBee
      */
     @Override
-    public
-    void setLifespan(FixedTimer timer) {
+    public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
     }
 
@@ -77,8 +73,7 @@ class GuardBee extends Npc implements Expirable {
      * Update the sprite of the GuardBee based on its current
      * direction
      */
-    public
-    void updateArtBasedOnDirection() {
+    public void updateArtBasedOnDirection() {
         int dir = this.getDirection();
         if (dir >= DOWN_MIN && dir < DOWN_MAX) {
             this.setSprite(art.getSprite("down"));
@@ -96,8 +91,7 @@ class GuardBee extends Npc implements Expirable {
      * rendered as required.
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         super.tick(state);
         this.move();
 
@@ -110,8 +104,7 @@ class GuardBee extends Npc implements Expirable {
             return;
         }
         for (Enemy enemy : game.getEnemies().Birds) {
-            if (this.distanceFrom(enemy)
-                    <
+            if (this.distanceFrom(enemy) <
                     LOCK_ON_RANGE) { // if a magpie is close enough
                 // to a bee it will lock onto it // TODO
                 double deltaX =

@@ -19,8 +19,7 @@ import java.util.function.Predicate;
  *
  * @stage2
  */
-public
-interface World {
+public interface World {
 
     /**
      * Return all tiles at the grid position of the x and y position.

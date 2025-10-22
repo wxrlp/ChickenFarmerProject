@@ -76,8 +76,7 @@ public class OverlayBuilder {
      * @return a new {@link SpawnerDetails} holding the
      * information extracted from the line.
      */
-    public static
-    SpawnerDetails extractSpawnDetailsFromLine(String line) {
+    public static SpawnerDetails extractSpawnDetailsFromLine(String line) {
         String[] chunks = line.split(" ");
         // should always be 3 chunks in a correctly shaped line.
         assert chunks.length == 3;
@@ -100,14 +99,14 @@ public class OverlayBuilder {
 
             @Override
             public void setX(int x) {
-                throw new UnsupportedOperationException("Spaw" +
-                        "nerDetails is immutable");
+                throw new UnsupportedOperationException(
+                        "Spaw" + "nerDetails is immutable");
             }
 
             @Override
             public void setY(int y) {
-                throw new UnsupportedOperationException("Spaw" +
-                        "nerDetails is immutable");
+                throw new UnsupportedOperationException(
+                        "Spaw" + "nerDetails is immutable");
             }
 
             @Override
@@ -135,13 +134,10 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    private static
-    List<SpawnerDetails>
-    getSpawnerDetailsFromString(String sectionLabel,
-                                String detailsContent)
+    private static List<SpawnerDetails> getSpawnerDetailsFromString(String sectionLabel, String detailsContent)
             throws IOException {
-        List<String> section = getSection(sectionLabel,
-                detailsContent);
+        List<String> section =
+                getSection(sectionLabel, detailsContent);
         List<SpawnerDetails> list = new ArrayList<>();
         for (String entry : section) {
             list.add(extractSpawnDetailsFromLine(entry));
@@ -158,11 +154,10 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    public static
-    List<SpawnerDetails>
-    getEagleSpawnDetailsFromString(String detailsContent)
+    public static List<SpawnerDetails> getEagleSpawnDetailsFromString(String detailsContent)
             throws IOException {
-        return getSpawnerDetailsFromString("eaglespawner",
+        return getSpawnerDetailsFromString(
+                "eaglespawner",
                 detailsContent);
     }
 
@@ -175,11 +170,10 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the
      *                     details file.
      */
-    public static
-    List<SpawnerDetails>
-    getPigeonSpawnDetailsFromString(String detailsContent)
+    public static List<SpawnerDetails> getPigeonSpawnDetailsFromString(String detailsContent)
             throws IOException {
-        return getSpawnerDetailsFromString("pigeonspawner",
+        return getSpawnerDetailsFromString(
+                "pigeonspawner",
                 detailsContent);
     }
 
@@ -193,10 +187,10 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    public static List<SpawnerDetails>
-    getMagpieSpawnDetailsFromString(String detailsContent)
+    public static List<SpawnerDetails> getMagpieSpawnDetailsFromString(String detailsContent)
             throws IOException {
-        return getSpawnerDetailsFromString("magpiespawner",
+        return getSpawnerDetailsFromString(
+                "magpiespawner",
                 detailsContent);
     }
 
@@ -207,8 +201,7 @@ public class OverlayBuilder {
      * @return a new {@link PlayerDetails} holding the information
      * extracted from the line.
      */
-    public static PlayerDetails
-    extractPlayerDetailsFromLine(String line) {
+    public static PlayerDetails extractPlayerDetailsFromLine(String line) {
         String[] chunks = line.split(" ");
         assert chunks.length == 4; // should always be 4 chunks in
         // a correctly shaped line.
@@ -258,11 +251,12 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    public static
-    PlayerDetails getPlayerDetailsFromFile(String detailsContent)
+    public static PlayerDetails getPlayerDetailsFromFile(String detailsContent)
             throws IOException {
-        List<String> section = OverlayBuilder.getSection(
-                "chickenFarmer", detailsContent);
+        List<String> section =
+                OverlayBuilder.getSection(
+                        "chickenFarmer",
+                        detailsContent);
         assert section.size() == 1; // right now we only expect
         // there to ever be
         // one chicken farmer entry
@@ -280,11 +274,10 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    public static    List<CabbageDetails>
-    getCabbageSpawnDetailsFromString(String detailsContent)
-    throws IOException {
-        final List<String> section = OverlayBuilder.getSection(
-                "cabbages", detailsContent);
+    public static List<CabbageDetails> getCabbageSpawnDetailsFromString(String detailsContent)
+            throws IOException {
+        final List<String> section =
+                OverlayBuilder.getSection("cabbages", detailsContent);
         final List<CabbageDetails> list = new ArrayList<>();
         for (String entry : section) {
             list.add(extractCabbageDetailsFromLine(entry));
@@ -299,8 +292,7 @@ public class OverlayBuilder {
      * @return a new {@link CabbageDetails} holding the information
      * extracted from the line.
      */
-    private static
-    CabbageDetails extractCabbageDetailsFromLine(String line) {
+    private static CabbageDetails extractCabbageDetailsFromLine(String line) {
         final String[] chunks = line.split(" ");
         String[] xChunk = chunks[0].split(":");
         String[] yChunk = chunks[1].split(":");

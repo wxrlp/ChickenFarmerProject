@@ -39,8 +39,7 @@ class Eagle extends Enemy implements Expirable {
      * @param trackedTarget The target that the eagle will track
      *                      and attack.
      */
-    public
-    Eagle(int x, int y, HasPosition trackedTarget) {
+    public Eagle(int x, int y, HasPosition trackedTarget) {
         super(x, y);
         this.spawnX = x;
         this.spawnY = y;
@@ -54,7 +53,8 @@ class Eagle extends Enemy implements Expirable {
 
         this.setSprite(art.getSprite("default"));
 
-        TargetPlayerHelper.setNewDirection(trackedTarget.getX(),
+        TargetPlayerHelper.setNewDirection(
+                trackedTarget.getX(),
                 trackedTarget.getY(), this);
 
     }
@@ -66,8 +66,7 @@ class Eagle extends Enemy implements Expirable {
      * @return The FixedTimer representing the lifespan of the Eagle.
      */
     @Override
-    public
-    FixedTimer getLifespan() {
+    public FixedTimer getLifespan() {
         return lifespan;
     }
 
@@ -78,8 +77,7 @@ class Eagle extends Enemy implements Expirable {
      *              Eagle.
      */
     @Override
-    public
-    void setLifespan(FixedTimer timer) {
+    public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
     }
 
@@ -97,8 +95,7 @@ class Eagle extends Enemy implements Expirable {
      *               update the game state.
      */
     @Override
-    public
-    void tick(EngineState engine, GameState game) {
+    public void tick(EngineState engine, GameState game) {
         super.tick(engine);
         this.lifespan.tick();
         int playerX = game.getPlayer().getX();

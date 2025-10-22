@@ -41,8 +41,8 @@ public class BeanWorld implements RenderableGroup, Tickable, World {
     /**
      * Finds all tiles that contain the given pixel coordinates.
      *
-     * @param x The x-axis (horizontal) coordinate in pixels.
-     * @param y The y-axis (vertical) coordinate in pixels.
+     * @param x          The x-axis (horizontal) coordinate in pixels.
+     * @param y          The y-axis (vertical) coordinate in pixels.
      * @param dimensions The dimensions of the world.
      * @return all tiles that contain the given pixel coordinates.
      */
@@ -80,9 +80,8 @@ public class BeanWorld implements RenderableGroup, Tickable, World {
      *               to find those relevant.
      */
     public List<Tile> tileSelector(Predicate<Tile> filter) {
-        return tiles.stream()
-                .filter(filter)
-                .collect(Collectors.toList());
+        return tiles.stream().filter(filter).collect(
+                Collectors.toList());
     }
 
     /**
@@ -93,9 +92,9 @@ public class BeanWorld implements RenderableGroup, Tickable, World {
      * @param state The state of the engine, including the mouse,
      *              keyboard information and dimension. Useful for
      *              processing keyboard presses or mouse movement.
-     * @param game The state of the game, including the player and
-     *             world. Can be used to query or update the game
-     *             state.
+     * @param game  The state of the game, including the player and
+     *              world. Can be used to query or update the game
+     *              state.
      */
     @Override
     public void tick(EngineState state, GameState game) {

@@ -11,6 +11,7 @@ import engine.EngineState;
 public class Enemy extends Npc {
     /**
      * Creates a new enemy at the given coordinates
+     *
      * @param x The x coordinate of the enemy
      * @param y The y coordinate of the enemy
      */
@@ -19,12 +20,14 @@ public class Enemy extends Npc {
     }
 
 
-
     /**
      * Interaction method for the enemy
+     *
      * @param state The current engine state
-     * @param game The current game state
+     * @param game  The current game state
      */
     @Override
-    public void interact(EngineState state, GameState game) {};
+    public void interact(EngineState state, GameState game) {}
+
+    ;
 }

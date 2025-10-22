@@ -20,8 +20,7 @@ import java.util.ArrayList;
  * If a bird comes within 350 pixels of the beehive, a single
  * guard bee will be spawned if it is loaded.
  */
-public
-class BeeHive extends Npc {
+public class BeeHive extends Npc {
 
     public static final int DETECTION_DISTANCE = 350;
     public static final int RELOAD_COOLDOWN_TICKS = 240;
@@ -39,8 +38,7 @@ class BeeHive extends Npc {
      * @param x horizontal position
      * @param y vertical position
      */
-    public
-    BeeHive(int x, int y) {
+    public BeeHive(int x, int y) {
         super(x, y);
         this.setSprite(art.getSprite("default"));
         this.setSpeed(0);
@@ -51,8 +49,7 @@ class BeeHive extends Npc {
      * rendered as required.
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         super.tick(state);
         this.timer.tick();
     }
@@ -62,8 +59,7 @@ class BeeHive extends Npc {
      * enemies within range
      */
     @Override
-    public
-    void interact(EngineState state, GameState game) {
+    public void interact(EngineState state, GameState game) {
         super.interact(state, game);
 
         timer.tick();
@@ -83,8 +79,7 @@ class BeeHive extends Npc {
      * @return A guard bee if an enemy is within range and the
      * beehive is loaded, null otherwise
      */
-    public
-    Npc checkAndSpawnBee(ArrayList<Enemy> targets) {
+    public Npc checkAndSpawnBee(ArrayList<Enemy> targets) {
         for (Enemy enemy : targets) {
             if (this.distanceFrom(enemy) < DETECTION_DISTANCE &&
                     this.loaded) {

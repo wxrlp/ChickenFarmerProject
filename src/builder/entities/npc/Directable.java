@@ -5,9 +5,9 @@ package builder.entities.npc;
  */
 public interface Directable {
 
-     int getDirection();
+    int getDirection();
 
-     void setDirection(int direction);
+    void setDirection(int direction);
 
-     void move();
+    void move();
 }

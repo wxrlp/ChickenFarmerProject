@@ -15,8 +15,7 @@ import java.util.ArrayList;
 /**
  * A Scarecrow that can scare away birds within a certain radius.
  */
-public
-class Scarecrow extends Npc {
+public class Scarecrow extends Npc {
 
     public static final int COIN_COST = 2;
     private static final SpriteGroup art = SpriteGallery.scarecrow;
@@ -28,8 +27,7 @@ class Scarecrow extends Npc {
      * @param x horizontal position
      * @param y vertical position
      */
-    public
-    Scarecrow(int x, int y) {
+    public Scarecrow(int x, int y) {
         super(x, y);
         this.setSprite(art.getSprite("default"));
         this.setSpeed(0);
@@ -40,8 +38,7 @@ class Scarecrow extends Npc {
      * Interact with the scarecrow to scare away nearby birds
      */
     @Override
-    public
-    void interact(EngineState state, GameState game) {
+    public void interact(EngineState state, GameState game) {
         super.interact(state, game);
         EnemyManager enemies = game.getEnemies();
         final ArrayList<Magpie> magpies = new ArrayList<>();

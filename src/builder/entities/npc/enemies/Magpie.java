@@ -18,8 +18,7 @@ import engine.timing.RepeatingTimer;
  * point before expiring. When the magpie reaches the player, it will
  * steal 1 coin from the player and return to spawn.
  */
-public
-class Magpie extends Enemy implements Expirable {
+public class Magpie extends Enemy implements Expirable {
 
     private static final SpriteGroup art = SpriteGallery.magpie;
     private FixedTimer lifespan = new FixedTimer(10000);
@@ -44,8 +43,7 @@ class Magpie extends Enemy implements Expirable {
      * @param trackedTarget The target that the magpie will track
      *                      and attack.
      */
-    public
-    Magpie(int x, int y, HasPosition trackedTarget) {
+    public Magpie(int x, int y, HasPosition trackedTarget) {
         super(x, y);
         this.spawnX = x;
         this.spawnY = y;
@@ -55,8 +53,8 @@ class Magpie extends Enemy implements Expirable {
 
         double deltaX = trackedTarget.getX() - this.getX();
         double deltaY = trackedTarget.getY() - this.getY();
-        this.setDirection((int) Math.toDegrees(Math.atan2(deltaY,
-                deltaX)));
+        this.setDirection(
+                (int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
     }
 
     /**
@@ -65,14 +63,12 @@ class Magpie extends Enemy implements Expirable {
      * @return The FixedTimer representing the Magpie's lifespan.
      */
 
-    public
-    void setAttacking(boolean attackStatus) {
+    public void setAttacking(boolean attackStatus) {
         this.attacking = attackStatus;
     }
 
     @Override
-    public
-    FixedTimer getLifespan() {
+    public FixedTimer getLifespan() {
         return lifespan;
     }
 
@@ -82,8 +78,7 @@ class Magpie extends Enemy implements Expirable {
      * @param timer The FixedTimer to set as the Magpie's lifespan.
      */
     @Override
-    public
-    void setLifespan(FixedTimer timer) {
+    public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
     }
 
@@ -94,8 +89,7 @@ class Magpie extends Enemy implements Expirable {
      * @param game   The current state of the game.
      */
     @Override
-    public
-    void tick(EngineState engine, GameState game) {
+    public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
         this.lifespan.tick();
         int tileSize = engine.getDimensions().tileSize();
@@ -105,13 +99,11 @@ class Magpie extends Enemy implements Expirable {
 
         if (attacking) {
             TargetPlayerHelper.setDirectionAndSpriteTowards(
-                    trackedTarget.getX(),
-                    trackedTarget.getY(),
+                    trackedTarget.getX(), trackedTarget.getY(),
                     attacking, this, art);
         } else {
             TargetPlayerHelper.setDirectionAndSpriteTowards(
-                    this.spawnX, this.spawnY,
-                    attacking, this, art);
+                    this.spawnX, this.spawnY, attacking, this, art);
         }
 
         this.move();

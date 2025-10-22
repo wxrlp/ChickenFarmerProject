@@ -22,16 +22,14 @@ import java.util.List;
  *
  * @stage2
  */
-public
-class WorldBuilder {
+public class WorldBuilder {
 
     /**
      * Construct a new world builder.
      *
      * @hint You do not need to implement this.
      */
-    private
-    WorldBuilder() {
+    private WorldBuilder() {
         throw new AssertionError("WorldBuilder is" +
                 " a utility class, should not be instantiated");
     }
@@ -79,8 +77,8 @@ class WorldBuilder {
      *                            TileFactory#fromSymbol(int, int,
      *                            char)}.
      */
-    public static
-    List<Tile> fromString(Dimensions dimensions, String text)
+    public static List<Tile> fromString(Dimensions dimensions,
+                                        String text)
             throws WorldLoadException {
         int numberOfTiles =
                 dimensions.windowSize() / dimensions.tileSize();
@@ -145,8 +143,8 @@ class WorldBuilder {
      *                            (according to {@link
      *                            #fromString(Dimensions, String)}).
      */
-    public static
-    BeanWorld fromFile(Dimensions dimensions, String filepath)
+    public static BeanWorld fromFile(Dimensions dimensions,
+                                     String filepath)
             throws IOException, WorldLoadException {
         String text = Files.readString(Path.of(filepath));
         return fromTiles(fromString(dimensions, text));
@@ -157,8 +155,7 @@ class WorldBuilder {
      *
      * @return A new empty world.
      */
-    public static
-    BeanWorld empty() {
+    public static BeanWorld empty() {
         return new BeanWorld();
     }
 
@@ -169,8 +166,7 @@ class WorldBuilder {
      * @param tiles Tiles to populate the world.
      * @return A new world containing all given tiles.
      */
-    public static
-    BeanWorld fromTiles(List<Tile> tiles) {
+    public static BeanWorld fromTiles(List<Tile> tiles) {
         BeanWorld world = new BeanWorld();
         for (Tile tile : tiles.reversed()) { // reverse so tests
             // don't implicitly rely on order

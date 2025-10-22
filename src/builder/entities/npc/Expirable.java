@@ -7,8 +7,7 @@ import engine.timing.FixedTimer;
  * to expire over a specific set of
  * time.
  */
-public
-interface Expirable {
+public interface Expirable {
     void setLifespan(FixedTimer lifespan);
 
     FixedTimer getLifespan();
