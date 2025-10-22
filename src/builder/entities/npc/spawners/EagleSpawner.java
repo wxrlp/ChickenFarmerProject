@@ -29,6 +29,9 @@ public class EagleSpawner extends HelperSpawner implements Spawner {
     public void tick(EngineState state, GameState game) {
         timer.tick();
         if (this.getTimer().isFinished()) {
+            if (game.getEnemies() == null) {
+                return;
+            }
             game.getEnemies().spawnEagle(this.getX(), this.getY(), game.getPlayer());
         }
     }
