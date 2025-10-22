@@ -20,14 +20,19 @@ import java.util.ArrayList;
 public class BeeHive extends Npc {
 
     public static final int DETECTION_DISTANCE = 350;
-    public static final int TIMER = 240;
+    public static final int RELOAD_COOLDOWN_TICKS = 240;
     public static final int FOOD_COST = 2;
     public static final int COIN_COST = 2;
     private static final SpriteGroup art = SpriteGallery.hive;
     private boolean loaded = true;
 
-    private final RepeatingTimer timer = new RepeatingTimer(TIMER);
+    private final RepeatingTimer timer = new RepeatingTimer(RELOAD_COOLDOWN_TICKS);
 
+    /** Create a new beehive at the given coordinates
+     *
+     * @param x horizontal position
+     * @param y vertical position
+     */
     public BeeHive(int x, int y) {
         super(x, y);
         this.setSprite(art.getSprite("default"));
