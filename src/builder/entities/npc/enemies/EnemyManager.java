@@ -115,7 +115,7 @@ public class EnemyManager implements Tickable, Interactable, RenderableGroup {
         return magpies;
     }
 
-    public ArrayList<Enemy> getALl() {
+    public ArrayList<Enemy> getAll() {
         return this.Birds;
     }
 
