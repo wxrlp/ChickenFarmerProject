@@ -21,7 +21,7 @@ public class Npc extends Entity implements Interactable, Tickable, Directable {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
@@ -48,7 +48,7 @@ public class Npc extends Entity implements Interactable, Tickable, Directable {
 
     @Override
     public void tick(EngineState state, GameState game) {
-        this.move();
+        tick(state);
     }
 
     @Override
