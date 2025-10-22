@@ -21,6 +21,13 @@ public class GuardBee extends Npc implements Expirable {
     private static final SpriteGroup art = SpriteGallery.bee;
     private FixedTimer lifespan = new FixedTimer(300);
     private final HasPosition trackedTarget;
+    private static final int UP_MIN = 230;
+    private static final int UP_MAX = 310;
+    private static final int DOWN_MIN = 40;
+    private static final int DOWN_MAX = 140;
+    private static final int RIGHT_MIN = 310;
+    private static final int RIGHT_MAX = 40;  // Wraps around 0
+
 
     /**
      * @param xCoordinate horizontal spawning position
@@ -41,32 +48,38 @@ public class GuardBee extends Npc implements Expirable {
         this.setSpeed(GuardBee.SPEED);
     }
 
+    /** Return the lifespan timer of this GuardBee */
     @Override
     public FixedTimer getLifespan() {
         return lifespan;
     }
 
+    /** Set the lifespan timer of this GuardBee */
     @Override
     public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
     }
 
+    private enum CardinalDirection {
+        UP, DOWN, LEFT, RIGHT
+    }
+
+
+    /** Update the sprite of the GuardBee based on its current direction */
     public void updateArtBasedOnDirection() {
-        boolean goingUp = (this.getDirection() >= 230 && this.getDirection() < 310);
-        boolean goingDown = (this.getDirection() >= 40 && this.getDirection() < 140);
-        boolean goingRight = (this.getDirection() >= 310 || this.getDirection() < 40);
-        boolean goingLeft = (this.getDirection() >= 140 && this.getDirection() < 230);
-        if (goingDown) {
+        int dir = this.getDirection();
+        if (dir >= DOWN_MIN && dir < DOWN_MAX) {
             this.setSprite(art.getSprite("down"));
-        } else if (goingUp) {
+        } else if (dir >= UP_MIN && dir < UP_MAX) {
             this.setSprite(art.getSprite("up"));
-        } else if (goingRight) {
+        } else if (dir >= RIGHT_MIN || dir < RIGHT_MAX) {
             this.setSprite(art.getSprite("right"));
-        } else if (goingLeft) {
+        } else {
             this.setSprite(art.getSprite("left"));
         }
     }
 
+    /** Progress the state of the GuardBee, updating how it is rendered as required. */
     @Override
     public void tick(EngineState state, GameState game) {
         super.tick(state);
@@ -89,10 +102,10 @@ public class GuardBee extends Npc implements Expirable {
             }
         }
 
-        if (game.getEnemies().getALl().isEmpty()){
+        if (game.getEnemies().getAll().isEmpty()){
             this.markForRemoval();
         }
-        for (Enemy enemy : game.getEnemies().getALl()) {
+        for (Enemy enemy : game.getEnemies().getAll()) {
             if (this.distanceFrom(enemy) < state.getDimensions().tileSize()) {
                 enemy.markForRemoval();
                 this.markForRemoval();
