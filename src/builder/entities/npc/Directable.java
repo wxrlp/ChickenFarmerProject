@@ -1,10 +1,13 @@
 package builder.entities.npc;
 
+/**
+ * An entity that can be directed to move in a specific direction.
+ */
 public interface Directable {
 
-    public int getDirection();
+     int getDirection();
 
-    public void setDirection(int direction);
+     void setDirection(int direction);
 
-    public void move();
+     void move();
 }
