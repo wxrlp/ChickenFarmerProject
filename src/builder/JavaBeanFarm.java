@@ -9,11 +9,7 @@ import builder.entities.npc.spawners.Spawner;
 import builder.entities.tiles.Dirt;
 import builder.entities.tiles.Tile;
 import builder.inventory.*;
-import builder.inventory.items.Bucket;
-import builder.inventory.items.HiveHammer;
-import builder.inventory.items.Hoe;
-import builder.inventory.items.Jackhammer;
-import builder.inventory.items.Pole;
+import builder.inventory.items.*;
 import builder.inventory.ui.InventoryOverlay;
 import builder.inventory.ui.ResourceOverlay;
 import builder.player.PlayerManager;
@@ -149,11 +145,7 @@ public class JavaBeanFarm implements Game {
                 inventorySize, playerDetails.getStartingCoins(),
                 playerDetails.getStartingFood());
 
-        inventory.setItem(0, new Bucket());
-        inventory.setItem(1, new Hoe());
-        inventory.setItem(2, new Jackhammer());
-        inventory.setItem(3, new HiveHammer());
-        inventory.setItem(4, new Pole());
+        inventoryInitialiser(inventory);
 
         this.overlays.add(
                 new InventoryOverlay(dimensions, inventorySize));
@@ -185,6 +177,19 @@ public class JavaBeanFarm implements Game {
         }
     }
 
+    private void inventoryInitialiser(Inventory inventory) {
+        Item[] defaultItems = {
+                new Bucket(),
+                new Hoe(),
+                new Jackhammer(),
+                new HiveHammer(),
+                new Pole()
+        };
+
+        for (int i = 0; i < defaultItems.length; i++) {
+            inventory.setItem(i, defaultItems[i]);
+        }
+    }
     /**
      * Ticks the internal game state forward by one frame. a
      *
