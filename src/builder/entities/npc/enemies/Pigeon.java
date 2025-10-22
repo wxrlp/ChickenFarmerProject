@@ -15,6 +15,10 @@ import engine.timing.FixedTimer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Pigeon enemy that tracks cabbages, attacks to destroy them, and returns to its spawn
+ * point before expiring.
+ */
 public class Pigeon extends Enemy implements Expirable {
 
     private static final SpriteGroup art = SpriteGallery.pigeon;
@@ -24,6 +28,11 @@ public class Pigeon extends Enemy implements Expirable {
     private int spawnX = 0;
     private int spawnY = 0;
 
+    /**
+     * Constructs a Pigeon enemy at the specified coordinates.
+     * @param x The x-coordinate of the pigeon's spawn position.
+     * @param y The y-coordinate of the pigeon's spawn position.
+     */
     public Pigeon(int x, int y) {
         super(x, y);
         this.spawnX = x;
@@ -31,6 +40,12 @@ public class Pigeon extends Enemy implements Expirable {
         this.setSprite(art.getSprite("down"));
     }
 
+    /**
+     * Constructs a Pigeon enemy at the specified coordinates, tracking the given target.
+     * @param x The x-coordinate of the pigeon's spawn position.
+     * @param y The y-coordinate of the pigeon's spawn position.
+     * @param trackedTarget The target that the pigeon will track and attack.
+     */
     public Pigeon(int x, int y, HasPosition trackedTarget) {
         super(x, y);
         this.spawnX = x;
@@ -40,17 +55,19 @@ public class Pigeon extends Enemy implements Expirable {
         this.setSprite(art.getSprite("down"));
     }
 
+    /** Gets the lifespan timer of the Pigeon. */
     @Override
     public FixedTimer getLifespan() {
         return lifespan;
     }
 
+    /** Sets the lifespan timer of the Pigeon. */
     @Override
     public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
     }
 
-
+    /** Updates the sprite of the Pigeon based on its return direction. */
     private void updateReturnSprite() {
         if (this.spawnY < this.getY()) {
             this.setSprite(art.getSprite("up"));
@@ -59,6 +76,7 @@ public class Pigeon extends Enemy implements Expirable {
         }
     }
 
+    /** Moves the Pigeon back to its spawn point. */
     private void returnToSpawn(EngineState engine) {
         double deltaX = (this.spawnX - this.getX());
         double deltaY = (this.spawnY - this.getY());
@@ -71,7 +89,7 @@ public class Pigeon extends Enemy implements Expirable {
         updateReturnSprite();
     }
 
-
+    /** Finds all tiles in the game world that contain cabbages. */
     private List<Tile> findTilesWithCabbage(GameState game) {
         return game.getWorld()
                 .tileSelector(
@@ -85,6 +103,8 @@ public class Pigeon extends Enemy implements Expirable {
                         }
                         );
     }
+
+    /** Updates the state of the Pigeon on each tick of the game engine. */
     @Override
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
@@ -119,6 +139,16 @@ public class Pigeon extends Enemy implements Expirable {
 
     }
 
+    /** Sets the attacking status of the Pigeon.
+     * @param attackStatus The new attacking status to set.
+     * @return The updated attacking status.
+     */
+    public boolean setAttacking(boolean attackStatus){
+        this.attacking = attackStatus;
+        return this.attacking;
+    }
+
+    /** Attacks the closest cabbage tile if within range. */
     private void attackCabbage(int tileSize, List<Tile> tiles){
         if (!tiles.isEmpty()) {
             int distance = this.distanceFrom(tiles.getFirst());
