@@ -99,14 +99,17 @@ public class JavaBeanFarm implements Game {
             throws IOException, WorldLoadException {
 
         final String detailsContent = readAllReader(detailReader);
+        final String worldContent = readAllReader(mapReader);
+
         final PlayerDetails playerDetails =
-                OverlayBuilder.getPlayerDetailsFromFile(
-                        detailsContent);
-        this.playerManager = new PlayerManager(
-                playerDetails.getX(),
-                playerDetails.getY());
+                OverlayBuilder.getPlayerDetailsFromFile(detailsContent);
+        this.playerManager = new PlayerManager(playerDetails.getX(), playerDetails.getY());
         this.npcs = new NpcManager();
         this.enemies = new EnemyManager(dimensions);
+
+        // Load world and spawners
+        this.world = WorldBuilder.fromTiles(
+                WorldBuilder.fromString(dimensions, worldContent));
         loadSpawners(
                 OverlayBuilder.getMagpieSpawnDetailsFromString(detailsContent),
                 MagpieSpawner::new);
@@ -117,41 +120,12 @@ public class JavaBeanFarm implements Game {
                 OverlayBuilder.getPigeonSpawnDetailsFromString(detailsContent),
                 PigeonSpawner::new);
 
-        String worldContent = readAllReader(mapReader);
-        this.world = WorldBuilder.fromTiles(
-                WorldBuilder.fromString(dimensions, worldContent));
+        initializeCabbages(detailsContent, dimensions);
 
-        final List<CabbageDetails> cabbageSpawnPoints =
-                OverlayBuilder.getCabbageSpawnDetailsFromString(
-                        detailsContent);
-        for (CabbageDetails cabbageDetails : cabbageSpawnPoints) {
-            // HACK - can I improve this?
-            final int positionX = cabbageDetails.getX();
-            final int positionY = cabbageDetails.getY();
-            final List<Tile> tiles =
-                    this.world.tilesAtPosition(
-                            positionX, positionY,
-                            dimensions);
-            for (Tile tile : tiles) {
-                if (tile instanceof Dirt) {
-                    TinyInventory tempInventory =
-                            new TinyInventory(5, 100, 100);
-                    ((Dirt) tile).till();
-                    ((Dirt) tile).plant(tempInventory);
-                }
-            }
-        }
-
-        int inventorySize = 5;
-        this.inventory = new TinyInventory(
-                inventorySize, playerDetails.getStartingCoins(),
-                playerDetails.getStartingFood());
-
-        inventoryInitialiser(inventory);
-
-        this.overlays.add(
-                new InventoryOverlay(dimensions, inventorySize));
-        this.overlays.add(new ResourceOverlay(dimensions));
+        // Setup inventory and UI
+        this.inventory = createInventory(playerDetails);
+        initializeInventory(this.inventory);
+        initializeOverlays(dimensions);
     }
 
     public JavaBeanFarm(Dimensions dimensions, String mapFile,
