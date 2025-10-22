@@ -67,6 +67,13 @@ public class JavaBeanFarm implements Game {
     private final Inventory inventory;
     private final List<Overlay> overlays = new ArrayList<>();
 
+    /**
+     * Reads all content from a Reader and returns it as a String.
+     *
+     * @param reader The Reader to read from.
+     * @return The content read from the Reader as a String.
+     * @throws IOException If an I/O error occurs.
+     */
     private String readAllReader(Reader reader) throws IOException {
         try (BufferedReader br = new BufferedReader(reader)) {
             StringJoiner sb = new StringJoiner(System.lineSeparator());
@@ -129,6 +136,21 @@ public class JavaBeanFarm implements Game {
         initializeOverlays(dimensions);
     }
 
+    /**
+     * Constructs a new JavaBean Farm game using the given
+     * dimensions, mapPath and detailPath
+     *
+     * @param dimensions  The dimensions we want for this game.
+     * @param mapFile     The path to a file that contains a
+     *                    description of the world map.
+     * @param detailsFile The path to a file that contains the
+     *                    overlay details for the game, e.g.
+     *                    spawner locations.
+     * @throws IOException        If the game is unable to find or
+     *                            open the default world map file.
+     * @throws WorldLoadException If the default world map file
+     *                            cannot be parsed successfully.
+     */
     public JavaBeanFarm(Dimensions dimensions, String mapFile,
                         String detailsFile)
             throws IOException, WorldLoadException {
@@ -137,6 +159,11 @@ public class JavaBeanFarm implements Game {
                 new FileReader(detailsFile));
     }
 
+    /**
+     * Initializes the overlays for the game.
+     *
+     * @param dimensions The dimensions of the world.
+     */
     private void initializeOverlays(Dimensions dimensions) {
         this.overlays.add(new InventoryOverlay(dimensions,
                 DEFAULT_INVENTORY_SIZE));
@@ -144,6 +171,16 @@ public class JavaBeanFarm implements Game {
     }
 
 
+    /**
+     * Initializes cabbages in the world based on the
+     * detailsContent.
+     *
+     * @param detailsContent The content containing cabbage spawn
+     *                       details.
+     * @param dimensions     The dimensions of the world.
+     * @throws IOException If there is an error reading the cabbage
+     *                     details.
+     */
     private void initializeCabbages(String detailsContent, Dimensions dimensions)
             throws IOException {
         List<CabbageDetails> cabbageSpawnPoints =
@@ -154,6 +191,14 @@ public class JavaBeanFarm implements Game {
         }
     }
 
+    /**
+     * Plants a cabbage at the specified coordinates within the
+     * world.
+     *
+     * @param x          The x-coordinate to plant the cabbage.
+     * @param y          The y-coordinate to plant the cabbage.
+     * @param dimensions The dimensions of the world.
+     */
     private void plantCabbageAt(int x, int y, Dimensions dimensions) {
         List<Tile> tiles = this.world.tilesAtPosition(x, y, dimensions);
 
@@ -169,6 +214,11 @@ public class JavaBeanFarm implements Game {
         }
     }
 
+    /**
+     * Initializes the player's inventory with default items.
+     *
+     * @param inventory The inventory to initialize.
+     */
     private void initializeInventory(Inventory inventory) {
         Item[] defaultItems = {
                 new Bucket(), new Hoe(), new Jackhammer(),
@@ -181,6 +231,13 @@ public class JavaBeanFarm implements Game {
     }
 
 
+    /**
+     * Creates a new inventory for the player based on their
+     * details.
+     *
+     * @param playerDetails The details of the player.
+     * @return A new inventory for the player.
+     */
     private Inventory createInventory(PlayerDetails playerDetails) {
         return new TinyInventory(
                 DEFAULT_INVENTORY_SIZE,
@@ -188,11 +245,20 @@ public class JavaBeanFarm implements Game {
                 playerDetails.getStartingFood());
     }
 
+    /** * A factory interface for creating spawners.
+     */
     @FunctionalInterface
     private interface SpawnerFactory {
         Spawner create(int x, int y, int duration);
     }
 
+    /**
+     * Loads spawners from the given details using the provided
+     * factory.
+     *
+     * @param spawnerDetails The details of the spawners to load.
+     * @param factory        The factory to create spawners.
+     */
     private void loadSpawners(
             List<SpawnerDetails> spawnerDetails,
             SpawnerFactory factory) {
@@ -204,19 +270,7 @@ public class JavaBeanFarm implements Game {
         }
     }
 
-    private void inventoryInitialiser(Inventory inventory) {
-        Item[] defaultItems = {
-                new Bucket(),
-                new Hoe(),
-                new Jackhammer(),
-                new HiveHammer(),
-                new Pole()
-        };
 
-        for (int i = 0; i < defaultItems.length; i++) {
-            inventory.setItem(i, defaultItems[i]);
-        }
-    }
     /**
      * Ticks the internal game state forward by one frame. a
      *
