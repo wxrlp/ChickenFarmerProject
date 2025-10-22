@@ -12,7 +12,8 @@ import engine.timing.TickTimer;
 /**
  * Spawner for BeeHive bees
  */
-public class BeeHiveSpawner implements Spawner {
+public
+class BeeHiveSpawner implements Spawner {
 
     private final RepeatingTimer timer;
     private int x;
@@ -21,19 +22,23 @@ public class BeeHiveSpawner implements Spawner {
     /**
      * Creates a new BeeHive spawner at the given coordinates
      *
-     * @param x The x coordinate of the spawner
-     * @param y The y coordinate of the spawner
+     * @param x        The x coordinate of the spawner
+     * @param y        The y coordinate of the spawner
      * @param duration The duration between spawns
      */
-    public BeeHiveSpawner(int x, int y, int duration) {
+    public
+    BeeHiveSpawner(int x, int y, int duration) {
         this.x = x;
         this.y = y;
         this.timer = new RepeatingTimer(duration);
     }
 
-    /** Returns the timer for this spawner */
+    /**
+     * Returns the timer for this spawner
+     */
     @Override
-    public TickTimer getTimer() {
+    public
+    TickTimer getTimer() {
         return this.timer;
     }
 
@@ -44,42 +49,57 @@ public class BeeHiveSpawner implements Spawner {
      * @param game  The current game state
      */
     @Override
-    public void tick(EngineState state, GameState game) {
+    public
+    void tick(EngineState state, GameState game) {
         Player player = game.getPlayer();
         NpcManager npcs = game.getNpcs();
         final boolean canAfford =
                 game.getInventory().getFood() >= BeeHive.FOOD_COST
-                        && game.getInventory().getCoins() >= BeeHive.COIN_COST;
+                        && game.getInventory().getCoins() >=
+                        BeeHive.COIN_COST;
 
         if (canAfford && state.getKeys().isDown('h')) {
             game.getInventory().addFood(BeeHive.FOOD_COST);
             game.getInventory().addCoins(BeeHive.COIN_COST);
             npcs.addNpc(new BeeHive(player.getX(), player.getY()));
         }
-        // look at use code example to spawn based on user input and only on grass tiles
+        // look at use code example to spawn based on user input
+        // and only on grass tiles
     }
 
-    /** returns the x coordinate of the spawner */
+    /**
+     * returns the x coordinate of the spawner
+     */
     @Override
-    public int getX() {
+    public
+    int getX() {
         return this.x;
     }
 
-    /** sets the x coordinate of the spawner */
+    /**
+     * sets the x coordinate of the spawner
+     */
     @Override
-    public void setX(int x) {
+    public
+    void setX(int x) {
         this.x = x;
     }
 
-    /** returns the y coordinate of the spawner */
+    /**
+     * returns the y coordinate of the spawner
+     */
     @Override
-    public int getY() {
+    public
+    int getY() {
         return this.y;
     }
 
-    /** sets the y coordinate of the spawner */
+    /**
+     * sets the y coordinate of the spawner
+     */
     @Override
-    public void setY(int y) {
+    public
+    void setY(int y) {
         this.y = y;
     }
 }
