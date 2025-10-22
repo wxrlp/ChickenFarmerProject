@@ -99,7 +99,7 @@ public class Dirt extends Tile {
             inventory.addCoins(-Scarecrow.COIN_COST);
             Scarecrow scarecrow = new Scarecrow(this.getX(), this.getY());
             this.placeOn(scarecrow);
-            game.getNpcs().npcs.add(scarecrow);
+            game.getNpcs().addNpc(scarecrow);
         }
     }
 }
