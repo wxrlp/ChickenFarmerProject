@@ -69,11 +69,6 @@ public class WorldBuilder {
      *                            according to the dimensions.
      * @throws WorldLoadException If any character doesn't
      *                            correspond to a tile according to
-     *                            {@link
-     *                            <p>
-     *                            <p>
-     *                            <p>
-     *                            <p>
      *                            TileFactory#fromSymbol(int, int,
      *                            char)}.
      */
