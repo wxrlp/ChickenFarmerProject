@@ -54,9 +54,9 @@ class MagpieSpawner extends HelperSpawner implements Spawner {
             if (game.getEnemies() == null) {
                 return;
             }
-            game.getEnemies().spawnX = this.getX();
-            game.getEnemies().spawnY = this.getY();
-            game.getEnemies().Birds.add(
+            game.getEnemies().setSpawnX(this.getX());
+            game.getEnemies().setSpawnY(this.getY());
+            game.getEnemies().getBirds().add(
                     game.getEnemies().makeMagpie(game.getPlayer()));
 
         }

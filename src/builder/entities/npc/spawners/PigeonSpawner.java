@@ -75,9 +75,9 @@ class PigeonSpawner extends HelperSpawner implements Spawner {
             // Spawn a pigeon targeting the closest cabbage if the
             // timer is finished
             if (this.getTimer().isFinished()) {
-                enemies.spawnX = this.getX();
-                enemies.spawnY = this.getY();
-                enemies.Birds.add(
+                game.getEnemies().setSpawnX(this.getX());
+                game.getEnemies().setSpawnY(this.getY());
+                enemies.getBirds().add(
                         game.getEnemies().makePigeon(closest));
             }
         }

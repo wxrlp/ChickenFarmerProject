@@ -103,7 +103,7 @@ public class GuardBee extends Npc implements Expirable {
                     (int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
             return;
         }
-        for (Enemy enemy : game.getEnemies().Birds) {
+        for (Enemy enemy : game.getEnemies().getBirds()) {
             if (this.distanceFrom(enemy) <
                     LOCK_ON_RANGE) { // if a magpie is close enough
                 // to a bee it will lock onto it // TODO
@@ -121,8 +121,8 @@ public class GuardBee extends Npc implements Expirable {
             this.markForRemoval();
         }
         for (Enemy enemy : game.getEnemies().getAll()) {
-            if (this.distanceFrom(enemy) <
-                    state.getDimensions().tileSize()) {
+            if (this.distanceFrom(enemy)
+                    < state.getDimensions().tileSize()) {
                 enemy.markForRemoval();
                 this.markForRemoval();
             }

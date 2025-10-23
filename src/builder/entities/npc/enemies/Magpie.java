@@ -22,9 +22,10 @@ public class Magpie extends Enemy implements Expirable {
 
     private static final SpriteGroup art = SpriteGallery.magpie;
     private FixedTimer lifespan = new FixedTimer(10000);
-    public HasPosition trackedTarget;
+    private HasPosition trackedTarget;
     private boolean attacking;
-    public int coins = 0;
+    private int coins = 0;
+
 
     private RepeatingTimer directionalUpdateTimer =
             new RepeatingTimer(30);
@@ -57,15 +58,52 @@ public class Magpie extends Enemy implements Expirable {
                 (int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
     }
 
-    /**
-     * Gets the lifespan of the Magpie.
+    /** Sets the attacking status of the Magpie.
      *
-     * @return The FixedTimer representing the Magpie's lifespan.
+     * @param attackStatus True if the Magpie is attacking, false otherwise.
      */
-
     public void setAttacking(boolean attackStatus) {
         this.attacking = attackStatus;
     }
+
+    /**
+     * Sets the tracked target of the Magpie.
+     *
+     * @param trackedTarget The HasPosition to set as the Magpie's tracked target.
+     */
+    public void setTrackedTargetTrackedTarget(HasPosition trackedTarget) {
+        this.trackedTarget = trackedTarget;
+    }
+
+    /**
+     * Gets the tracked target of the Magpie.
+     *
+     * @return The HasPosition representing the Magpie's tracked target.
+     */
+    public HasPosition getTrackedTargetTrackedTarget() {
+        return this.trackedTarget;
+    }
+
+    /**
+     * Gets the number of coins the Magpie has stolen.
+     *
+     * @return The number of coins the Magpie has.
+     */
+    public int getCoins() {
+        return coins;
+    }
+
+    /**
+     * Sets the number of coins the Magpie has stolen.
+     *
+     * @param coins The number of coins to set for the Magpie.
+     */
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+
+
 
     @Override
     public FixedTimer getLifespan() {
@@ -92,7 +130,7 @@ public class Magpie extends Enemy implements Expirable {
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
         this.lifespan.tick();
-        int tileSize = engine.getDimensions().tileSize();
+        final int tileSize = engine.getDimensions().tileSize();
         if (this.lifespan.isFinished()) {
             this.markForRemoval();
         }
@@ -110,11 +148,11 @@ public class Magpie extends Enemy implements Expirable {
         this.directionalUpdateTimer.tick();
         Player player = game.getPlayer();
         final boolean hasHitPlayer =
-                this.distanceFrom(player.getX(), player.getY()) <
-                        tileSize;
+                this.distanceFrom(player.getX(), player.getY())
+                        < tileSize;
         // Take a coin from player and run back to spawn
-        if (hasHitPlayer && game.getInventory().getCoins() > 0 &&
-                this.attacking) {
+        if (hasHitPlayer && game.getInventory().getCoins() > 0
+                && this.attacking) {
             game.getInventory().addCoins(-1);
             this.coins += 1;
             this.attacking = false;

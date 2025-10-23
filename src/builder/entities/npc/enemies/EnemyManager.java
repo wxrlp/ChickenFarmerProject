@@ -15,13 +15,20 @@ import engine.renderer.Renderable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages all enemies in the game, including updating, rendering,
+ * and interactions.
+ */
 public class EnemyManager implements Tickable, Interactable,
         RenderableGroup {
 
-    public final ArrayList<Spawner> spawners = new ArrayList<>();
-    public final ArrayList<Enemy> Birds = new ArrayList<>();
-    public int spawnX;
-    public int spawnY;
+    private final ArrayList<Spawner> spawners = new ArrayList<>();
+    private final ArrayList<Enemy> birds = new ArrayList<>();
+
+
+    private int spawnX;
+
+    private int spawnY;
 
     public EnemyManager(Dimensions dimensions) {
     }
@@ -30,11 +37,57 @@ public class EnemyManager implements Tickable, Interactable,
      * Cleans up any birds that are marked for removal.
      */
     public void cleanup() {
-        for (int i = this.Birds.size() - 1; i >= 0; i -= 1) {
-            if (this.Birds.get(i).isMarkedForRemoval()) {
-                this.Birds.remove(i);
+        for (int i = this.birds.size() - 1; i >= 0; i -= 1) {
+            if (this.birds.get(i).isMarkedForRemoval()) {
+                this.birds.remove(i);
             }
         }
+    }
+
+    /**
+     * @return the list of spawners managed by this manager.
+     */
+    public ArrayList<Spawner> getSpawners() {
+        return spawners;
+    }
+
+    /**
+     * @return the list of birds managed by this manager.
+     */
+    public ArrayList<Enemy> getBirds() {
+        return birds;
+    }
+
+    /**
+     * @return the spawn Y coordinate.
+     */
+    public int getSpawnY() {
+        return spawnY;
+    }
+
+    /**
+     * Sets the spawn Y coordinate.
+     *
+     * @param spawnY The spawn Y coordinate to set.
+     */
+    public void setSpawnY(int spawnY) {
+        this.spawnY = spawnY;
+    }
+
+    /**
+     * @return the spawn X coordinate.
+     */
+    public int getSpawnX() {
+        return spawnX;
+    }
+
+    /**
+     * Sets the spawn X coordinate.
+     *
+     * @param spawnX The spawn X coordinate to set.
+     */
+    public void setSpawnX(int spawnX) {
+        this.spawnX = spawnX;
     }
 
     /**
@@ -56,7 +109,7 @@ public class EnemyManager implements Tickable, Interactable,
     public Magpie makeMagpie(Player player) {
         final Magpie magpie =
                 new Magpie(this.spawnX, this.spawnY, player);
-        this.Birds.add(magpie);
+        this.birds.add(magpie);
         return magpie;
     }
 
@@ -70,7 +123,7 @@ public class EnemyManager implements Tickable, Interactable,
     public Pigeon makePigeon(HasPosition hasPosition) {
         final Pigeon pigeon =
                 new Pigeon(this.spawnX, this.spawnY, hasPosition);
-        this.Birds.add(pigeon);
+        this.birds.add(pigeon);
         return pigeon;
     }
 
@@ -90,7 +143,7 @@ public class EnemyManager implements Tickable, Interactable,
         this.spawnX = x;
         this.spawnY = y;
         Eagle eagle = makeEagle(player);
-        this.Birds.add(eagle);
+        this.birds.add(eagle);
     }
 
 
@@ -109,7 +162,7 @@ public class EnemyManager implements Tickable, Interactable,
         for (Spawner spawner : this.spawners) {
             spawner.tick(state, game);
         }
-        for (Enemy bird : Birds) {
+        for (Enemy bird : birds) {
             bird.tick(state, game);
         }
     }
@@ -121,7 +174,7 @@ public class EnemyManager implements Tickable, Interactable,
      */
     public ArrayList<Magpie> getMagpies() {
         final ArrayList<Magpie> magpies = new ArrayList<Magpie>();
-        for (Enemy bird : Birds) {
+        for (Enemy bird : birds) {
             if (bird instanceof Magpie temp) {
                 magpies.add(temp);
             }
@@ -130,7 +183,7 @@ public class EnemyManager implements Tickable, Interactable,
     }
 
     public ArrayList<Enemy> getAll() {
-        return this.Birds;
+        return this.birds;
     }
 
     /**
@@ -154,6 +207,6 @@ public class EnemyManager implements Tickable, Interactable,
      */
     @Override
     public List<Renderable> render() {
-        return new ArrayList<>(this.Birds);
+        return new ArrayList<>(this.birds);
     }
 }
