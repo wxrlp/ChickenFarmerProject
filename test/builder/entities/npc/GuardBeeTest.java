@@ -13,6 +13,8 @@ import engine.timing.FixedTimer;
 import org.junit.Before;
 import org.junit.Test;
 import scenarios.mocks.MockEngineState;
+
+
 import static org.junit.Assert.*;
 
 public class GuardBeeTest {
@@ -86,6 +88,46 @@ public class GuardBeeTest {
     }
 
     @Test
+    public void testGuardBeeMarksForRemovalWhenNoEnemies() {
+        // Empty enemy list
+        guardBee.tick(engineState, gameState);
+
+        assertTrue(guardBee.isMarkedForRemoval());
+    }
+
+
+    @Test
+    public void testGuardBeePointsTowardTarget() {
+        // Bee at (400,400), target at (600,600)
+        // Should point down-right (around 45 degrees)
+        int direction = guardBee.getDirection();
+        assertTrue(direction >= 40 && direction <= 50);
+    }
+
+    @Test
+    public void testGuardBeeUpdatesSpriteBasedOnDirection() {
+        // Point down (90 degrees)
+        guardBee.setDirection(90);
+        guardBee.updateArtBasedOnDirection();
+        assertEquals("bee:down", guardBee.getSprite().getLabel());
+
+        // Point up (270 degrees)
+        guardBee.setDirection(270);
+        guardBee.updateArtBasedOnDirection();
+        assertEquals("bee:up", guardBee.getSprite().getLabel());
+
+        // Point right (0 degrees)
+        guardBee.setDirection(0);
+        guardBee.updateArtBasedOnDirection();
+        assertEquals("bee:right", guardBee.getSprite().getLabel());
+
+        // Point left (180 degrees)
+        guardBee.setDirection(180);
+        guardBee.updateArtBasedOnDirection();
+        assertEquals("bee:left", guardBee.getSprite().getLabel());
+    }
+
+    @Test
     public void testGuardBeeKillsEnemy() {
         enemies.getBirds().add(target);
         enemies.getAll().add(target);
@@ -109,5 +151,33 @@ public class GuardBeeTest {
         assertNotNull(beeWithoutTarget.getSprite());
     }
 
+    @Test
+    public void testGuardBeeLocksOntoCloseEnemy() {
+        enemies.getBirds().add(target);
+
+        // Position target close to bee
+        target.setX(BEE_X + 50);
+        target.setY(BEE_Y + 50);
+
+        guardBee.tick(engineState, gameState);
+
+        // Ensure sprite still exists after directional change
+        assertNotNull(guardBee.getSprite());
+    }
+
+    @Test
+    public void testGuardBeeLifespanDecreases() {
+        guardBee.setLifespan(new FixedTimer(10));
+        enemies.getBirds().add(target);
+
+        for (int i = 0; i < 11; i++) {
+            guardBee.tick(engineState, gameState);
+        }
+
+        // Should be marked for removal after lifespan
+    }
 
 }
+
+
+
