@@ -50,6 +50,41 @@ public class EagleTest {
     }
 
     @Test
+    public void testEagleSpriteExists() {
+        assertNotNull(eagle.getSprite());
+    }
+
+    @Test
+    public void testEagleFinishesLifespanAndDespawns() {
+        // Set a shorter lifespan for testing
+        eagle.setLifespan(new FixedTimer(10));
+
+        // Tick 11 times (10 + 1 to finish)
+        for (int i = 0; i < 11; i++) {
+            eagle.tick(engineState, gameState);
+        }
+
+        assertTrue(eagle.isMarkedForRemoval());
+    }
+
+
+    @Test
+    public void testEagleSetNewDirection() {
+        eagle.setDirection(90);
+        assertEquals(90, eagle.getDirection());
+    }
+
+    @Test
+    public void testEagleStillAttackingIfNotNearPlayer() {
+        eagle.setX(PLAYER_X + dimensions.tileSize() + 5);
+        eagle.setY(PLAYER_Y + dimensions.tileSize() + 5);
+        eagle.setAttacking(true);
+        eagle.tick(engineState, gameState);
+        assertTrue(eagle.getAttacking());
+    }
+
+
+    @Test
     public void testEagleInitialPosition() {
         assertEquals(SPAWN_X, eagle.getX());
         assertEquals(SPAWN_Y, eagle.getY());

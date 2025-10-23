@@ -24,6 +24,7 @@ public class Pigeon extends Enemy implements Expirable {
 
     private static final SpriteGroup art = SpriteGallery.pigeon;
     private FixedTimer lifespan = new FixedTimer(3000);
+
     private HasPosition trackedTarget;
 
     private boolean attacking = true;
@@ -77,6 +78,25 @@ public class Pigeon extends Enemy implements Expirable {
     @Override
     public void setLifespan(FixedTimer timer) {
         this.lifespan = timer;
+    }
+
+    /**
+     * Gets the target that the Pigeon is currently tracking.
+     *
+     * @return The tracked target.
+     */
+    public HasPosition getTrackedTarget() {
+        return trackedTarget;
+    }
+
+
+    /**
+     * Sets the target that the Pigeon will track.
+     *
+     * @param trackedTarget The new target to track.
+     */
+    public void setTrackedTarget(HasPosition trackedTarget) {
+        this.trackedTarget = trackedTarget;
     }
 
     /**

@@ -58,6 +58,22 @@ public class Eagle extends Enemy implements Expirable {
 
     }
 
+    /** Sets the attacking status of the Eagle.
+     *
+     * @param attackStatus True if the Eagle is attacking, false
+     *                     otherwise.
+     */
+    public void setAttacking(boolean attackStatus) {
+        this.attacking = attackStatus;
+    }
+
+    /** Gets the attacking status of the eagle
+     *
+     * @return attacking status of eagle
+     */
+    public boolean getAttacking() {
+        return attacking;
+    }
 
     /**
      * Gets the lifespan timer of the Eagle.
