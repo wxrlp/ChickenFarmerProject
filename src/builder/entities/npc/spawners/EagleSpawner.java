@@ -9,8 +9,7 @@ import engine.timing.RepeatingTimer;
 /**
  * Spawner for Eagle enemies
  */
-public
-class EagleSpawner extends HelperSpawner implements Spawner {
+public class EagleSpawner extends HelperSpawner implements Spawner {
     private static final int DEFAULT_SPAWN_INTERVAL =
             SpawnerBaseValues.EAGLE_SPAWN_INTERVAL;
 
@@ -18,8 +17,7 @@ class EagleSpawner extends HelperSpawner implements Spawner {
      * Creates an eagle spawner at the given coordinates with the
      * default spawn interval.
      */
-    public
-    EagleSpawner(int x, int y) {
+    public EagleSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);
     }
 
@@ -27,8 +25,7 @@ class EagleSpawner extends HelperSpawner implements Spawner {
      * Creates an eagle spawner at the given coordinates with a
      * custom spawn interval.
      */
-    public
-    EagleSpawner(int x, int y, int duration) {
+    public EagleSpawner(int x, int y, int duration) {
         super(x, y, new RepeatingTimer(duration));
 
     }
@@ -38,8 +35,7 @@ class EagleSpawner extends HelperSpawner implements Spawner {
      * Returns the timer for this spawner
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         timer.tick();
         if (this.getTimer().isFinished()) {
             if (game.getEnemies() == null) {

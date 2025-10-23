@@ -12,12 +12,11 @@ import engine.timing.TickTimer;
 /**
  * Spawner for BeeHive bees
  */
-public
-class BeeHiveSpawner implements Spawner {
+public class BeeHiveSpawner implements Spawner {
 
     private final RepeatingTimer timer;
-    private int x;
-    private int y;
+    private int xcoordinate;
+    private int ycoordinate;
 
     /**
      * Creates a new BeeHive spawner at the given coordinates
@@ -26,10 +25,9 @@ class BeeHiveSpawner implements Spawner {
      * @param y        The y coordinate of the spawner
      * @param duration The duration between spawns
      */
-    public
-    BeeHiveSpawner(int x, int y, int duration) {
-        this.x = x;
-        this.y = y;
+    public BeeHiveSpawner(int x, int y, int duration) {
+        this.xcoordinate = x;
+        this.ycoordinate = y;
         this.timer = new RepeatingTimer(duration);
     }
 
@@ -37,8 +35,7 @@ class BeeHiveSpawner implements Spawner {
      * Returns the timer for this spawner
      */
     @Override
-    public
-    TickTimer getTimer() {
+    public TickTimer getTimer() {
         return this.timer;
     }
 
@@ -49,14 +46,13 @@ class BeeHiveSpawner implements Spawner {
      * @param game  The current game state
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         Player player = game.getPlayer();
         NpcManager npcs = game.getNpcs();
         final boolean canAfford =
                 game.getInventory().getFood() >= BeeHive.FOOD_COST
-                        && game.getInventory().getCoins() >=
-                        BeeHive.COIN_COST;
+                        && game.getInventory().getCoins()
+                            >= BeeHive.COIN_COST;
 
         if (canAfford && state.getKeys().isDown('h')) {
             game.getInventory().addFood(BeeHive.FOOD_COST);
@@ -71,35 +67,31 @@ class BeeHiveSpawner implements Spawner {
      * returns the x coordinate of the spawner
      */
     @Override
-    public
-    int getX() {
-        return this.x;
+    public int getX() {
+        return this.xcoordinate;
     }
 
     /**
      * sets the x coordinate of the spawner
      */
     @Override
-    public
-    void setX(int x) {
-        this.x = x;
+    public void setX(int x) {
+        this.xcoordinate = x;
     }
 
     /**
      * returns the y coordinate of the spawner
      */
     @Override
-    public
-    int getY() {
-        return this.y;
+    public int getY() {
+        return this.ycoordinate;
     }
 
     /**
      * sets the y coordinate of the spawner
      */
     @Override
-    public
-    void setY(int y) {
-        this.y = y;
+    public void setY(int y) {
+        this.ycoordinate = y;
     }
 }

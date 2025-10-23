@@ -10,8 +10,7 @@ import engine.timing.TickTimer;
 /**
  * Spawner for Magpie enemies
  */
-public
-class MagpieSpawner extends HelperSpawner implements Spawner {
+public class MagpieSpawner extends HelperSpawner implements Spawner {
     private static final int DEFAULT_SPAWN_INTERVAL =
             SpawnerBaseValues.MAGPIE_SPAWN_INTERVAL;
 
@@ -19,8 +18,7 @@ class MagpieSpawner extends HelperSpawner implements Spawner {
      * Creates a magpie spawner at the given coordinates with the
      * default spawn interval.
      */
-    public
-    MagpieSpawner(int x, int y) {
+    public MagpieSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);
     }
 
@@ -28,8 +26,7 @@ class MagpieSpawner extends HelperSpawner implements Spawner {
      * Creates a magpie spawner at the given coordinates with a
      * custom spawn interval.
      */
-    public
-    MagpieSpawner(int x, int y, int duration) {
+    public MagpieSpawner(int x, int y, int duration) {
         super(x, y, new RepeatingTimer(duration));
     }
 
@@ -37,8 +34,7 @@ class MagpieSpawner extends HelperSpawner implements Spawner {
      * Returns the timer for this spawner
      */
     @Override
-    public
-    TickTimer getTimer() {
+    public TickTimer getTimer() {
         return timer;
     }
 
@@ -47,8 +43,7 @@ class MagpieSpawner extends HelperSpawner implements Spawner {
      * finished.
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         this.timer.tick();
         if (this.getTimer().isFinished()) {
             if (game.getEnemies() == null) {

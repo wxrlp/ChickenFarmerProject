@@ -15,8 +15,7 @@ import java.util.List;
 /**
  * Spawner that spawns pigeons when there are cabbages on the map.
  */
-public
-class PigeonSpawner extends HelperSpawner implements Spawner {
+public class PigeonSpawner extends HelperSpawner implements Spawner {
     private static final int DEFAULT_SPAWN_INTERVAL =
             SpawnerBaseValues.PIGEON_SPAWN_INTERVAL;
 
@@ -24,8 +23,7 @@ class PigeonSpawner extends HelperSpawner implements Spawner {
      * Creates a pigeon spawner at the given coordinates with the
      * default spawn interval.
      */
-    public
-    PigeonSpawner(int x, int y) {
+    public PigeonSpawner(int x, int y) {
         super(x, y, DEFAULT_SPAWN_INTERVAL);
     }
 
@@ -33,8 +31,7 @@ class PigeonSpawner extends HelperSpawner implements Spawner {
      * Creates a pigeon spawner at the given coordinates with a
      * custom spawn interval.
      */
-    public
-    PigeonSpawner(int x, int y, int duration) {
+    public PigeonSpawner(int x, int y, int duration) {
         super(x, y, new RepeatingTimer(duration));
     }
 
@@ -44,23 +41,18 @@ class PigeonSpawner extends HelperSpawner implements Spawner {
      * cabbages exist on the map.
      */
     @Override
-    public
-    void tick(EngineState state, GameState game) {
+    public void tick(EngineState state, GameState game) {
         EnemyManager enemies = game.getEnemies();
         timer.tick();
         // Select all tiles that have cabbages on them
-        List<Tile> tiles =
-                game.getWorld()
-                        .tileSelector(
-                                tile -> {
-                                    for (Entity entity :
-                                            tile.getStackedEntities()) {
-                                        if (entity instanceof Cabbage) {
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                                });
+        List<Tile> tiles = game.getWorld().tileSelector(tile -> {
+            for (Entity entity : tile.getStackedEntities()) {
+                if (entity instanceof Cabbage) {
+                    return true;
+                }
+            }
+            return false;
+        });
 
         // Find the closest cabbage tile
         if (!tiles.isEmpty()) {

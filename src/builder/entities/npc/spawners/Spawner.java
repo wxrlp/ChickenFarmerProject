@@ -10,10 +10,11 @@ import engine.timing.TickTimer;
  * {@link builder.entities.npc.Npc}s or
  * {@link builder.entities.npc.enemies.Enemy}s
  */
-public
-interface Spawner extends HasPosition, Tickable {
+public interface Spawner extends HasPosition, Tickable {
 
-    public
+    /** *
+     * Returns the timer for this spawner
+     */
     TickTimer getTimer();
 
 }
