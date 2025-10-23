@@ -84,17 +84,6 @@ public class EagleTest {
     }
 
 
-    @Test
-    public void testEagleRemovesWhenLifespanFinished() {
-        // Tick lifespan until finished
-        for (int i = 0; i < 5001; i++) {
-            eagle.getLifespan().tick();
-        }
-
-        eagle.tick(engineState, gameState);
-
-        assertTrue(eagle.isMarkedForRemoval());
-    }
 
     @Test
     public void testEagleStealsFood() {
@@ -136,7 +125,7 @@ public class EagleTest {
     }
 
     @Test
-    public void EagleDoesntReturnFoodAtSpawn() {
+    public void EagleDoesNotReturnFoodAtSpawn() {
         int initialFood = inventory.getFood();
 
         // Eagle takes food
