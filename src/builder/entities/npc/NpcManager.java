@@ -30,7 +30,7 @@ public class NpcManager implements Interactable, Tickable,
      * Cleans up any NPCs that are marked for removal.
      */
     public void cleanup() {
-        for (int i = this.npcs.size() - 1; i >= 0; i -= 1) {
+        for (int i = this.getNpcs().size() - 1; i >= 0; i -= 1) {
             if (this.npcs.get(i).isMarkedForRemoval()) {
                 this.npcs.remove(i);
             }
