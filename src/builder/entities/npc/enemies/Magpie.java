@@ -27,7 +27,7 @@ public class Magpie extends Enemy implements Expirable {
     private int coins = 0;
 
 
-    private RepeatingTimer directionalUpdateTimer =
+    private final RepeatingTimer directionalUpdateTimer =
             new RepeatingTimer(30);
 
     private final int spawnX;
@@ -66,12 +66,20 @@ public class Magpie extends Enemy implements Expirable {
         this.attacking = attackStatus;
     }
 
+    /** Gets the attacking status of the magpie
+     *
+     * @return attacking status of magpie
+     */
+    public boolean getAttacking() {
+        return attacking;
+    }
+
     /**
      * Sets the tracked target of the Magpie.
      *
      * @param trackedTarget The HasPosition to set as the Magpie's tracked target.
      */
-    public void setTrackedTargetTrackedTarget(HasPosition trackedTarget) {
+    public void setTrackedTarget(HasPosition trackedTarget) {
         this.trackedTarget = trackedTarget;
     }
 
@@ -80,7 +88,7 @@ public class Magpie extends Enemy implements Expirable {
      *
      * @return The HasPosition representing the Magpie's tracked target.
      */
-    public HasPosition getTrackedTargetTrackedTarget() {
+    public HasPosition getTrackedTarget() {
         return this.trackedTarget;
     }
 
