@@ -124,7 +124,7 @@ public class OverlayBuilder {
 
 
     /**
-     * Get's the spawner details from the details file.
+     * Gets the spawner details from the details file.
      *
      * @param sectionLabel   label of the section to extract
      *                       spawner details from.
@@ -147,7 +147,7 @@ public class OverlayBuilder {
     }
 
     /**
-     * Get's the eagle spawn details from the details file.
+     * Gets the eagle spawn details from the details file.
      *
      * @param detailsContent content of the details file to process.
      * @return a list of {@link SpawnerDetails} holding the
@@ -163,7 +163,7 @@ public class OverlayBuilder {
     }
 
     /**
-     * Get's the pigeon spawn details from the details file.
+     * Gets the pigeon spawn details from the details file.
      *
      * @param detailsContent content of the details file to process.
      * @return a list of {@link SpawnerDetails} holding
@@ -179,7 +179,7 @@ public class OverlayBuilder {
     }
 
     /**
-     * Get's the magpie spawn details from the details file.
+     * Gets the magpie spawn details from the details file.
      *
      * @param detailsContent content of the details file to process.
      * @return a list of {@link SpawnerDetails} holding the
@@ -266,7 +266,7 @@ public class OverlayBuilder {
     }
 
     /**
-     * Get's the cabbage spawn details from the details file.
+     * Gets the cabbage spawn details from the details file.
      *
      * @param detailsContent content of the details file to process.
      * @return a list of {@link CabbageDetails} holding the
