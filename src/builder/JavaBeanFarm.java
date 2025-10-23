@@ -221,8 +221,8 @@ public class JavaBeanFarm implements Game {
      */
     private void initializeInventory(Inventory inventory) {
         Item[] defaultItems = {
-                new Bucket(), new Hoe(), new Jackhammer(),
-                new HiveHammer(), new Pole()
+            new Bucket(), new Hoe(), new Jackhammer(),
+            new HiveHammer(), new Pole()
         };
 
         for (int i = 0; i < defaultItems.length; i++) {

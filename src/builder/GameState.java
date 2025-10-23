@@ -26,8 +26,18 @@ public interface GameState {
      */
     World getWorld();
 
+    /**
+     * Returns the current state of the NPC manager.
+     *
+     * @return The NPC manager.
+     */
     NpcManager getNpcs();
 
+    /**
+     * Returns the current state of the Enemy manager.
+     *
+     * @return The Enemy manager.
+     */
     EnemyManager getEnemies();
 
     /**

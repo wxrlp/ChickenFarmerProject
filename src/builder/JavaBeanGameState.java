@@ -39,6 +39,9 @@ public class JavaBeanGameState implements GameState {
         this.enemies = enemies;
     }
 
+    /** Gets the NPC manager.
+     * @return The NPC manager.
+     */
     public NpcManager getNpcs() {
         return this.npcs;
     }
@@ -48,7 +51,7 @@ public class JavaBeanGameState implements GameState {
         return this.enemies;
     }
 
-    /**
+    /** Returns the current state of the game world.
      * @stage2
      */
     @Override
@@ -56,7 +59,7 @@ public class JavaBeanGameState implements GameState {
         return world;
     }
 
-    /**
+    /** Returns the current state of the player.
      * @stage1
      */
     @Override
@@ -64,7 +67,7 @@ public class JavaBeanGameState implements GameState {
         return player;
     }
 
-    /**
+    /** Returns the current state of the inventory.
      * @stage3
      */
     @Override
