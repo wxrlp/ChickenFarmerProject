@@ -271,7 +271,7 @@ public class EagleTest {
 
     @Test
     public void testCheckDefaultSpriteOnCreation() {
-        assertEquals("eagle:down",
+        assertEquals("eagle:default",
                 eagle.getSprite().getLabel());
     }
 
