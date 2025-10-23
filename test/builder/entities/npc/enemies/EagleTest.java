@@ -80,7 +80,7 @@ public class EagleTest {
         eagle.setY(PLAYER_Y + dimensions.tileSize() + 5);
         eagle.setAttacking(true);
         eagle.tick(engineState, gameState);
-        assertTrue(eagle.getAttacking());
+        assertTrue(eagle.isAttacking());
     }
 
 
@@ -254,7 +254,7 @@ public class EagleTest {
         eagle.tick(engineState, gameState);
 
         // Now eagle should be retreating
-        assertFalse(eagle.getAttacking());
+        assertFalse(eagle.isAttacking());
 
         // Position eagle so spawn is above (opposite of initial attack direction)
         eagle.setX(SPAWN_X);

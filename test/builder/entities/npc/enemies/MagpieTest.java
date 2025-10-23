@@ -69,7 +69,7 @@ public class MagpieTest {
         magpie.setX(PLAYER_X);
         magpie.setY(PLAYER_Y);
         magpie.tick(engineState, gameState);
-        assertFalse(magpie.getAttacking());
+        assertFalse(magpie.isAttacking());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class MagpieTest {
         magpie.tick(engineState, gameState);
 
         assertEquals(0, inventory.getCoins());
-        assertTrue(magpie.getAttacking());
+        assertTrue(magpie.isAttacking());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class MagpieTest {
         magpie.setX(PLAYER_X);
         magpie.setY(PLAYER_Y);
         magpie.tick(engineState, gameState);
-        assertFalse(magpie.getAttacking());
+        assertFalse(magpie.isAttacking());
 
         // Magpie should be marked for removal when back at spawn
         magpie.setX(SPAWN_X);
@@ -157,7 +157,7 @@ public class MagpieTest {
         magpie.tick(engineState, gameState);
 
         // Now Magpie should be retreating
-        assertFalse(magpie.getAttacking());
+        assertFalse(magpie.isAttacking());
 
         // Position Magpie so spawn is above (opposite of initial
         // attack direction)

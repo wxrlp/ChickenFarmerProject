@@ -70,7 +70,7 @@ public class Magpie extends Enemy implements Expirable {
      *
      * @return attacking status of magpie
      */
-    public boolean getAttacking() {
+    public boolean isAttacking() {
         return attacking;
     }
 

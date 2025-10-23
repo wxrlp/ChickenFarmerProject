@@ -3,7 +3,6 @@ package builder.entities.npc.enemies;
 import builder.GameState;
 import builder.entities.npc.Expirable;
 import builder.helpers.TargetPlayerHelper;
-import builder.player.Player;
 import builder.ui.SpriteGallery;
 
 import engine.EngineState;
@@ -73,7 +72,7 @@ public class Eagle extends Enemy implements Expirable {
      *
      * @return attacking status of eagle
      */
-    public boolean getAttacking() {
+    public boolean isAttacking() {
         return attacking;
     }
 
