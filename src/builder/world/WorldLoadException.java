@@ -70,8 +70,8 @@ public class WorldLoadException extends Exception {
     @Override
     public String getMessage() {
         if (row != -1 && col != -1) {
-            return super.getMessage() + " on line " + (row + 1) +
-                    ", character " + (col + 1);
+            return super.getMessage() + " on line " + (row + 1)
+                    + ", character " + (col + 1);
         }
         if (row != -1) {
             return super.getMessage() + " on line " + (row + 1);

@@ -28,8 +28,8 @@ public class OverlayBuilder {
      */
     private static String load(String filepath) throws IOException {
         if (!filepath.endsWith(".details")) {
-            throw new IllegalArgumentException("incorrect file " +
-                    "name must have .details at end!");
+            throw new IllegalArgumentException("incorrect file "
+                    + "name must have .details at end!");
         }
         return Files.readString(Path.of(filepath));
     }
@@ -43,7 +43,7 @@ public class OverlayBuilder {
      *
      * @param label    label we are searching for
      * @param contents file contents we are searching through
-     * @return a {@link ArrayList<String>} of lines within the
+     * @return an ArrayList of lines within the
      * searched for section.
      * @throws IOException if the section is not found
      */
@@ -54,8 +54,8 @@ public class OverlayBuilder {
         boolean collectingLines = false;
         final List<String> section = new ArrayList<>();
         for (int i = 0; i < lines.length; i++) {
-            if (collectingLines &&
-                    lines[i].toLowerCase().trim().equals("end;")) {
+            if (collectingLines
+                    && lines[i].toLowerCase().trim().equals("end;")) {
                 return section;
             }
             if (collectingLines) {
@@ -80,11 +80,11 @@ public class OverlayBuilder {
         String[] chunks = line.split(" ");
         // should always be 3 chunks in a correctly shaped line.
         assert chunks.length == 3;
-        String[] xChunk = chunks[0].split(":");
-        String[] yChunk = chunks[1].split(":");
+        String[] xchunk = chunks[0].split(":");
+        String[] ychunk = chunks[1].split(":");
         String[] durationChunk = chunks[2].split(":");
-        final int x = Integer.parseInt(xChunk[1]);
-        final int y = Integer.parseInt(yChunk[1]);
+        final int x = Integer.parseInt(xchunk[1]);
+        final int y = Integer.parseInt(ychunk[1]);
         final int duration = Integer.parseInt(durationChunk[1]);
         return new SpawnerDetails() {
             @Override
@@ -116,8 +116,8 @@ public class OverlayBuilder {
 
             @Override
             public String toString() {
-                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y +
-                        ",duration:" + duration + "]";
+                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y
+                        + ",duration:" + duration + "]";
             }
         };
     }
@@ -134,7 +134,8 @@ public class OverlayBuilder {
      * @throws IOException if there is an error reading the details
      *                     file.
      */
-    private static List<SpawnerDetails> getSpawnerDetailsFromString(String sectionLabel, String detailsContent)
+    private static List<SpawnerDetails>
+        getSpawnerDetailsFromString(String sectionLabel, String detailsContent)
             throws IOException {
         List<String> section =
                 getSection(sectionLabel, detailsContent);
@@ -205,12 +206,12 @@ public class OverlayBuilder {
         String[] chunks = line.split(" ");
         assert chunks.length == 4; // should always be 4 chunks in
         // a correctly shaped line.
-        String[] xChunk = chunks[0].split(":");
-        String[] yChunk = chunks[1].split(":");
+        String[] xchunk = chunks[0].split(":");
+        String[] ychunk = chunks[1].split(":");
         String[] coinChunk = chunks[2].split(":");
         String[] foodChunk = chunks[3].split(":");
-        final int x = Integer.parseInt(xChunk[1]);
-        final int y = Integer.parseInt(yChunk[1]);
+        final int x = Integer.parseInt(xchunk[1]);
+        final int y = Integer.parseInt(ychunk[1]);
         final int coins = Integer.parseInt(coinChunk[1]);
         final int food = Integer.parseInt(foodChunk[1]);
         return new PlayerDetails() {
@@ -236,8 +237,8 @@ public class OverlayBuilder {
 
             @Override
             public String toString() {
-                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y +
-                        ",coins:" + coins + ",food:" + food + "]";
+                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y
+                        + ",coins:" + coins + ",food:" + food + "]";
             }
         };
     }
@@ -294,10 +295,10 @@ public class OverlayBuilder {
      */
     private static CabbageDetails extractCabbageDetailsFromLine(String line) {
         final String[] chunks = line.split(" ");
-        String[] xChunk = chunks[0].split(":");
-        String[] yChunk = chunks[1].split(":");
-        final int x = Integer.parseInt(xChunk[1]);
-        final int y = Integer.parseInt(yChunk[1]);
+        String[] xchunk = chunks[0].split(":");
+        String[] ychunk = chunks[1].split(":");
+        final int x = Integer.parseInt(xchunk[1]);
+        final int y = Integer.parseInt(ychunk[1]);
         return new CabbageDetails() {
             @Override
             public int getX() {
@@ -311,8 +312,8 @@ public class OverlayBuilder {
 
             @Override
             public String toString() {
-                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y +
-                        "]";
+                return "OverlayBuilder[" + "x:" + x + "," + "y:" + y
+                        + "]";
             }
         };
     }

@@ -30,8 +30,8 @@ public class WorldBuilder {
      * @hint You do not need to implement this.
      */
     private WorldBuilder() {
-        throw new AssertionError("WorldBuilder is" +
-                " a utility class, should not be instantiated");
+        throw new AssertionError("WorldBuilder is"
+                + " a utility class, should not be instantiated");
     }
 
     /**
@@ -85,9 +85,9 @@ public class WorldBuilder {
         String[] lines = text.split("\n");
         final boolean lineDesync = lines.length != numberOfTiles;
         if (lineDesync) {
-            throw new WorldLoadException("Expected " + numberOfTiles +
-                    " lines to match the given dimensions " +
-                    "but got " + lines.length);
+            throw new WorldLoadException("Expected " + numberOfTiles
+                    + " lines to match the given dimensions "
+                    + "but got " + lines.length);
         }
 
         final List<Tile> tiles = new ArrayList<>();
@@ -96,10 +96,10 @@ public class WorldBuilder {
 
             if (currentRow.length != numberOfTiles) {
                 throw new WorldLoadException(
-                        "Expected " + numberOfTiles +
-                                " characters to match the given " +
-                                "dimensions but got " +
-                                currentRow.length, row);
+                        "Expected " + numberOfTiles
+                                + " characters to match the given "
+                                + "dimensions but got "
+                                + currentRow.length, row);
             }
 
             for (int col = 0; col < numberOfTiles; col++) {
