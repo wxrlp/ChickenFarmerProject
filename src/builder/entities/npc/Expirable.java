@@ -8,7 +8,17 @@ import engine.timing.FixedTimer;
  * time.
  */
 public interface Expirable {
+    /**
+     * Sets the lifespan timer for this expirable entity.
+     *
+     * @param lifespan The FixedTimer representing the lifespan duration.
+     */
     void setLifespan(FixedTimer lifespan);
 
+    /**
+     * Gets the lifespan timer for this expirable entity.
+     *
+     * @return The FixedTimer representing the lifespan duration.
+     */
     FixedTimer getLifespan();
 }

@@ -81,8 +81,8 @@ public class BeeHive extends Npc {
      */
     public Npc checkAndSpawnBee(ArrayList<Enemy> targets) {
         for (Enemy enemy : targets) {
-            if (this.distanceFrom(enemy) < DETECTION_DISTANCE &&
-                    this.loaded) {
+            if (this.distanceFrom(enemy) < DETECTION_DISTANCE
+                    && this.loaded) {
                 this.loaded = false;
                 return new GuardBee(
                         this.getX(), this.getY(),

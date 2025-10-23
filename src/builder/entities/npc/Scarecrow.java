@@ -53,8 +53,8 @@ public class Scarecrow extends Npc {
             }
         }
 
-        final int scareRadius = state.getDimensions().tileSize() *
-                SCARE_RADIUS_IN_TILES;
+        final int scareRadius = state.getDimensions().tileSize()
+                * SCARE_RADIUS_IN_TILES;
 
         for (Magpie magpie : magpies) {
             if (this.distanceFrom(magpie) < scareRadius) {

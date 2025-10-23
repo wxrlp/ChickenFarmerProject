@@ -58,11 +58,11 @@ public class Npc extends Entity implements Interactable, Tickable,
      */
     public void move() {
         final int deltaX = (int) Math.round(
-                Math.cos(Math.toRadians(this.direction)) *
-                        this.speed);
+                Math.cos(Math.toRadians(this.direction))
+                        * this.speed);
         final int deltaY = (int) Math.round(
-                Math.sin(Math.toRadians(this.direction)) *
-                        this.speed);
+                Math.sin(Math.toRadians(this.direction))
+                        * this.speed);
         this.setX(this.getX() + deltaX);
         this.setY(this.getY() + deltaY);
     }
@@ -105,13 +105,13 @@ public class Npc extends Entity implements Interactable, Tickable,
     /**
      * Return how far away this npc is from the given position
      *
-     * @param xCoordinate - x coordinate
-     * @param yCoordinate - y coordinate
+     * @param xcoordinate - x coordinate
+     * @param ycoordinate - y coordinate
      * @return integer representation for how far apart they are
      */
-    public int distanceFrom(int xCoordinate, int yCoordinate) {
-        int deltaX = xCoordinate - this.getX();
-        int deltaY = yCoordinate - this.getY();
+    public int distanceFrom(int xcoordinate, int ycoordinate) {
+        int deltaX = xcoordinate - this.getX();
+        int deltaY = ycoordinate - this.getY();
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 }

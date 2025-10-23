@@ -28,10 +28,10 @@ public class GuardBee extends Npc implements Expirable {
     private static final int DOWN_MAX = 140;
     private static final int RIGHT_MIN = 310;
     private static final int RIGHT_MAX = 40;
-    private static final int LOCK_ON_RANGE = 300;// Wraps around 0
+    private static final int LOCK_ON_RANGE = 300; // Wraps around 0
 
 
-    /**
+    /**    * Create a new GuardBee at the given coordinates,
      * @param x             horizontal spawning position
      * @param y             vertical spawning position
      * @param trackedTarget target with a position we want this to
@@ -104,8 +104,8 @@ public class GuardBee extends Npc implements Expirable {
             return;
         }
         for (Enemy enemy : game.getEnemies().getBirds()) {
-            if (this.distanceFrom(enemy) <
-                    LOCK_ON_RANGE) { // if a magpie is close enough
+            if (this.distanceFrom(enemy)
+                    < LOCK_ON_RANGE) { // if a magpie is close enough
                 // to a bee it will lock onto it // TODO
                 double deltaX =
                         this.trackedTarget.getX() - this.getX();
@@ -130,8 +130,8 @@ public class GuardBee extends Npc implements Expirable {
 
         this.updateArtBasedOnDirection();
         lifespan.tick();
-        if (lifespan.isFinished() && (this.spawnX == this.getX() &&
-                this.spawnY == this.getY())) {
+        if (lifespan.isFinished() && (this.spawnX == this.getX()
+                && this.spawnY == this.getY())) {
             this.markForRemoval();
         }
     }

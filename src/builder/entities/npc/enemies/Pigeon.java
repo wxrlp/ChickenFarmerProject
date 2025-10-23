@@ -25,7 +25,8 @@ public class Pigeon extends Enemy implements Expirable {
     private static final SpriteGroup art = SpriteGallery.pigeon;
     private FixedTimer lifespan = new FixedTimer(3000);
     private HasPosition trackedTarget;
-    public boolean attacking = true;
+
+    private boolean attacking = true;
     private int spawnX = 0;
     private int spawnY = 0;
 
@@ -79,6 +80,15 @@ public class Pigeon extends Enemy implements Expirable {
     }
 
     /**
+     * Checks if the Pigeon is currently attacking.
+     *
+     * @return True if the Pigeon is attacking, false otherwise.
+     */
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    /**
      * Updates the sprite of the Pigeon based on its return direction.
      */
     private void updateReturnSprite() {
@@ -98,8 +108,8 @@ public class Pigeon extends Enemy implements Expirable {
         this.setDirection(
                 (int) Math.toDegrees(Math.atan2(deltaY, deltaX)));
 
-        if (this.distanceFrom(this.spawnX, this.spawnY) <
-                engine.getDimensions().tileSize()) {
+        if (this.distanceFrom(this.spawnX, this.spawnY)
+                < engine.getDimensions().tileSize()) {
             this.markForRemoval();
         }
 
@@ -127,13 +137,13 @@ public class Pigeon extends Enemy implements Expirable {
     @Override
     public void tick(EngineState engine, GameState game) {
         super.tick(engine, game);
-        int tileSize = engine.getDimensions().tileSize();
+        final int tileSize = engine.getDimensions().tileSize();
         if (!this.attacking) {
             returnToSpawn(engine);
         }
         this.move();
-        if (this.trackedTarget == null &&
-                this.attacking) { // if the pigeon has no target,
+        if (this.trackedTarget == null
+                && this.attacking) { // if the pigeon has no target,
             // it should go to the center of
             // the screen if its hunting
             returnToSpawn(engine);
@@ -185,9 +195,9 @@ public class Pigeon extends Enemy implements Expirable {
             }
             this.trackedTarget = closest;
 
-            if (this.attacking &&
-                    this.distanceFrom(this.trackedTarget) <
-                            tileSize) {
+            if (this.attacking
+                    && this.distanceFrom(this.trackedTarget)
+                            < tileSize) {
                 for (Entity entity : closest.getStackedEntities()) {
                     if (entity instanceof Cabbage cabbage) {
                         cabbage.markForRemoval();

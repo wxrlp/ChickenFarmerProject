@@ -30,6 +30,10 @@ public class EnemyManager implements Tickable, Interactable,
 
     private int spawnY;
 
+    /**
+     * Constructs an instance of {@link EnemyManager}.
+     * @param dimensions The dimensions of the game world.
+     */
     public EnemyManager(Dimensions dimensions) {
     }
 
@@ -44,21 +48,21 @@ public class EnemyManager implements Tickable, Interactable,
         }
     }
 
-    /**
+    /** Gets the list of spawners managed by this manager.
      * @return the list of spawners managed by this manager.
      */
     public ArrayList<Spawner> getSpawners() {
         return spawners;
     }
 
-    /**
+    /** Gets the list of birds managed by this manager.
      * @return the list of birds managed by this manager.
      */
     public ArrayList<Enemy> getBirds() {
         return birds;
     }
 
-    /**
+    /** Gets the spawn Y coordinate.
      * @return the spawn Y coordinate.
      */
     public int getSpawnY() {
@@ -74,7 +78,7 @@ public class EnemyManager implements Tickable, Interactable,
         this.spawnY = spawnY;
     }
 
-    /**
+    /** Gets the spawn X coordinate.
      * @return the spawn X coordinate.
      */
     public int getSpawnX() {
@@ -93,7 +97,7 @@ public class EnemyManager implements Tickable, Interactable,
     /**
      * Adds a spawner to the list of spawners.
      *
-     * @param spawner
+     * @param spawner The spawner to add.
      */
     public void add(Spawner spawner) {
         this.spawners.add(spawner);
@@ -139,6 +143,13 @@ public class EnemyManager implements Tickable, Interactable,
         return new Eagle(this.spawnX, this.spawnY, player);
     }
 
+    /** Spawns an Eagle at the given coordinates
+     * targeting the given player.
+     *
+     * @param x      The x coordinate to spawn the Eagle at.
+     * @param y      The y coordinate to spawn the Eagle at.
+     * @param player The player to target.
+     */
     public void spawnEagle(int x, int y, Player player) {
         this.spawnX = x;
         this.spawnY = y;
@@ -147,7 +158,7 @@ public class EnemyManager implements Tickable, Interactable,
     }
 
 
-    /**
+    /** The tick method for the enemy manager.
      * @param state The state of the engine, including the mouse,
      *              keyboard information and
      *              dimension. Useful for processing keyboard
@@ -182,11 +193,15 @@ public class EnemyManager implements Tickable, Interactable,
         return magpies;
     }
 
+    /** Get all enemies from the enemy manager.
+     *
+     * @return all enemies from the enemy manager.
+     */
     public ArrayList<Enemy> getAll() {
         return this.birds;
     }
 
-    /**
+    /** The interact method for the enemy manager.
      * @param state The state of the engine, including the mouse,
      *              keyboard information and
      *              dimension. Useful for processing keyboard

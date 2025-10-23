@@ -37,14 +37,14 @@ public class NpcManager implements Interactable, Tickable,
         }
     }
 
-    /**
+    /** Gets an unmodifiable list of NPCs managed by this
      * @return an unmodifiable list of NPCs managed by this manager.
      */
     public List<Npc> getNpcs() {
         return Collections.unmodifiableList(npcs);
     }
 
-    /**
+    /** Adds an NPC to be managed by this manager.
      * @param npc npc to add to the manager for it to well
      *            manage/track.
      */
@@ -80,9 +80,9 @@ public class NpcManager implements Interactable, Tickable,
     }
 
     /**
-     * Returns an ArrayList<Interactable> of interactable
+     * Returns an ArrayList of interactables
      *
-     * @return an ArrayList<Interactable> of interactable
+     * @return an ArrayList of interactables
      */
     private ArrayList<Interactable> getInteractables() {
         final ArrayList<Interactable> interactables =
