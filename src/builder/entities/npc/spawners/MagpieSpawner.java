@@ -30,13 +30,7 @@ public class MagpieSpawner extends HelperSpawner implements Spawner {
         super(x, y, new RepeatingTimer(duration));
     }
 
-    /**
-     * Returns the timer for this spawner
-     */
-    @Override
-    public TickTimer getTimer() {
-        return timer;
-    }
+
 
     /**
      * Spawns a magpie at the spawner's location when the timer is
@@ -44,7 +38,7 @@ public class MagpieSpawner extends HelperSpawner implements Spawner {
      */
     @Override
     public void tick(EngineState state, GameState game) {
-        this.timer.tick();
+        getTimer().tick();
         if (this.getTimer().isFinished()) {
             if (game.getEnemies() == null) {
                 return;

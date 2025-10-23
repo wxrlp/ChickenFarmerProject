@@ -1,1 +1,1 @@
-No generative AI was utilised
+“No generative AI tools were utilized.”

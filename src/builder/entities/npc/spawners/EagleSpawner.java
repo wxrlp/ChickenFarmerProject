@@ -36,7 +36,7 @@ public class EagleSpawner extends HelperSpawner implements Spawner {
      */
     @Override
     public void tick(EngineState state, GameState game) {
-        timer.tick();
+        getTimer().tick();
         if (this.getTimer().isFinished()) {
             if (game.getEnemies() == null) {
                 return;

@@ -43,7 +43,7 @@ public class PigeonSpawner extends HelperSpawner implements Spawner {
     @Override
     public void tick(EngineState state, GameState game) {
         EnemyManager enemies = game.getEnemies();
-        timer.tick();
+        getTimer().tick();
         // Select all tiles that have cabbages on them
         List<Tile> tiles = game.getWorld().tileSelector(tile -> {
             for (Entity entity : tile.getStackedEntities()) {
