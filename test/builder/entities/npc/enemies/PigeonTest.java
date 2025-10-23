@@ -186,4 +186,136 @@ public class PigeonTest {
     }
 
 
+    @Test
+    public void testPigeonDirectionChangesWhenTargetMoves() {
+        // Create cabbage at one location
+        Dirt dirtTile = new Dirt(SPAWN_X + 100, SPAWN_Y);
+        Cabbage cabbage = new Cabbage(SPAWN_X + 100, SPAWN_Y);
+        dirtTile.placeOn(cabbage);
+        world.place(dirtTile);
+
+        pigeon.tick(engineState, gameState);
+        int firstDirection = pigeon.getDirection();
+
+        // Adds a closer cabbage in different direction
+        Dirt dirtTile2 = new Dirt(SPAWN_X - 50, SPAWN_Y + 50);
+        Cabbage cabbage2 = new Cabbage(SPAWN_X - 50, SPAWN_Y + 50);
+        dirtTile2.placeOn(cabbage2);
+        world.place(dirtTile2);
+
+        // Tick again - pigeon should retarget closer cabbage
+        pigeon.tick(engineState, gameState);
+        int secondDirection = pigeon.getDirection();
+
+        assertNotEquals(firstDirection, secondDirection);
+    }
+
+    @Test
+    public void testReturnToSpawnMarksForRemovalWhenCloseToSpawn() {
+        pigeon.setAttacking(false);
+
+        // Position pigeon very close to spawn (within half tile size)
+        int halfTile = dimensions.tileSize() / 2;
+        pigeon.setX(SPAWN_X + halfTile / 2);
+        pigeon.setY(SPAWN_Y + halfTile / 2);
+
+        pigeon.tick(engineState, gameState);
+
+        // Pigeon should be marked for removal when close to spawn
+        assertTrue(pigeon.isMarkedForRemoval());
+    }
+
+    @Test
+    public void testReturnToSpawnDoesNotRemoveWhenFarFromSpawn() {
+        pigeon.setAttacking(false);
+
+        // Position pigeon far from spawn (more than tile size away)
+        int tileSize = dimensions.tileSize();
+        pigeon.setX(SPAWN_X + tileSize * 2);
+        pigeon.setY(SPAWN_Y + tileSize * 2);
+
+        pigeon.tick(engineState, gameState);
+
+        // Pigeon should not be marked for removal when far from spawn
+        assertFalse(pigeon.isMarkedForRemoval());
+    }
+
+    @Test
+    public void testReturnToSpawnUpdatesSprite() {
+        // Position pigeon below spawn (spawn is above)
+        pigeon.setX(SPAWN_X);
+        pigeon.setY(SPAWN_Y + 100);
+        pigeon.setAttacking(false);
+
+        pigeon.tick(engineState, gameState);
+
+        // Sprite should be "up" when returning to spawn that's above
+        assertEquals("pigeon:up",
+                pigeon.getSprite().getLabel());
+    }
+
+    @Test
+    public void testTickCallsReturnToSpawnWhenNotAttacking() {
+        // Position pigeon away from spawn
+        pigeon.setX(SPAWN_X + 100);
+        pigeon.setY(SPAWN_Y + 100);
+        pigeon.setAttacking(false);
+
+        int beforeDirection = pigeon.getDirection();
+        pigeon.tick(engineState, gameState);
+        int afterDirection = pigeon.getDirection();
+
+        // Direction should be updated to point toward spawn
+        assertNotEquals(beforeDirection, afterDirection);
+    }
+
+    @Test
+    public void testTickSearchesForCabbagesAndRetargets() {
+        // Start with no target
+        assertNull(pigeon.getTrackedTarget());
+
+        // Add a cabbage to the world
+        Dirt dirtTile = new Dirt(CABBAGE_X, CABBAGE_Y);
+        Cabbage cabbage = new Cabbage(CABBAGE_X, CABBAGE_Y);
+        dirtTile.placeOn(cabbage);
+        world.place(dirtTile);
+
+        // Tick should find the cabbage and set it as target
+        pigeon.tick(engineState, gameState);
+
+        assertNotNull(pigeon.getTrackedTarget());
+    }
+
+    @Test
+    public void testCompleteTickCycle() {
+        // Add cabbage
+        Dirt dirtTile = new Dirt(CABBAGE_X, CABBAGE_Y);
+        Cabbage cabbage = new Cabbage(CABBAGE_X, CABBAGE_Y);
+        dirtTile.placeOn(cabbage);
+        world.place(dirtTile);
+
+        // Phase 1: Attacking
+        pigeon.tick(engineState, gameState);
+        assertTrue(pigeon.isAttacking());
+        assertNotNull(pigeon.getTrackedTarget());
+
+        // Phase 2: Reach cabbage and eat it
+        pigeon.setX(CABBAGE_X);
+        pigeon.setY(CABBAGE_Y);
+        pigeon.tick(engineState, gameState);
+
+        assertFalse(pigeon.isAttacking());
+        assertTrue(cabbage.isMarkedForRemoval());
+
+        // Phase 3: Return to spawn
+        pigeon.setX(SPAWN_X);
+        pigeon.setY(SPAWN_Y);
+        pigeon.tick(engineState, gameState);
+
+        assertTrue(pigeon.isMarkedForRemoval());
+    }
+
+
+
+
 }

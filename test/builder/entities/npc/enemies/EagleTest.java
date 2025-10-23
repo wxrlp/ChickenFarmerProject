@@ -268,4 +268,31 @@ public class EagleTest {
         assertEquals("eagle:down", attackSprite);
         assertEquals("eagle:up", retreatSprite);
     }
+
+    @Test
+    public void testCheckDefaultSpriteOnCreation() {
+        assertEquals("eagle:down",
+                eagle.getSprite().getLabel());
+    }
+
+    @Test
+    public void testCheckDeltaX() {
+        eagle.setX(200);
+        eagle.setY(200);
+        double deltaX = player.getX() - eagle.getX();
+        assertEquals(200, deltaX, 0.01);
+    }
+
+    @Test
+    public void testCheckDeltaY() {
+        eagle.setX(200);
+        eagle.setY(200);
+        double deltaY = player.getY() - eagle.getY();
+        assertEquals(200, deltaY, 0.01);
+    }
+
+    @Test
+    public void testCheckInitialFoodIsZero() {
+        assertEquals(0, eagle.getFood());
+    }
 }

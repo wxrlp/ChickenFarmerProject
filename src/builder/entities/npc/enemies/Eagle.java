@@ -25,6 +25,8 @@ public class Eagle extends Enemy implements Expirable {
     private boolean attacking = true;
     private final int spawnX;
     private final int spawnY;
+
+
     private int food = 0;
 
     /**
@@ -177,6 +179,24 @@ public class Eagle extends Enemy implements Expirable {
      */
     public void setTrackedTarget(HasPosition trackedTarget) {
         this.trackedTarget = trackedTarget;
+    }
+
+    /**
+     * Gets the amount of food the Eagle has stolen.
+     *
+     * @return The amount of food stolen by the Eagle.
+     */
+    public int getFood() {
+        return food;
+    }
+
+    /**
+     * Sets the amount of food the Eagle has stolen.
+     *
+     * @param food The amount of food to set for the Eagle.
+     */
+    public void setFood(int food) {
+        this.food = food;
     }
 
 

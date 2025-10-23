@@ -204,4 +204,31 @@ public class MagpieTest {
         assertEquals("magpie:down", magpieSpriteLabel);
     }
 
+    @Test
+    public void testCheckDefaultSpriteOnCreation() {
+        assertEquals("magpie:down",
+                magpie.getSprite().getLabel());
+    }
+
+    @Test
+    public void testCheckDeltaX() {
+        magpie.setX(200);
+        magpie.setY(200);
+        double deltaX = player.getX() - magpie.getX();
+        assertEquals(200, deltaX, 0.01);
+    }
+
+    @Test
+    public void testCheckDeltaY() {
+        magpie.setX(200);
+        magpie.setY(200);
+        double deltaY = player.getY() - magpie.getY();
+        assertEquals(200, deltaY, 0.01);
+    }
+
+    @Test
+    public void testCheckInitialCoinsIsZero() {
+        assertEquals(0, magpie.getCoins());
+    }
+
 }
