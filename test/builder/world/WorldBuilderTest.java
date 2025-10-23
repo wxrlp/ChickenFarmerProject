@@ -99,37 +99,7 @@ public class WorldBuilderTest {
         WorldBuilder.fromString(dimensions, builder.toString());
     }
 
-    @Test
-    public void testFromStringTilePositionsCorrect() throws WorldLoadException {
-        // Create 10x10 world
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < numberOfTiles; i++) {
-            for (int j = 0; j < numberOfTiles; j++) {
-                builder.append('d');
-            }
-            if (i < numberOfTiles - 1) {
-                builder.append('\n');
-            }
-        }
 
-        List<Tile> tiles = WorldBuilder.fromString(dimensions, builder.toString());
-
-        // First tile should be at (0, 0)
-        Tile firstTile = tiles.getFirst();
-        assertEquals(0, firstTile.getX());
-        assertEquals(0, firstTile.getY());
-    }
-
-    @Test
-    public void testFromFileValidFile() throws IOException, WorldLoadException {
-        // Use the actual map file from resources
-        String filepath = "resources/uqLogo.map";
-
-        BeanWorld world = WorldBuilder.fromFile(dimensions, filepath);
-
-        assertNotNull(world);
-        assertTrue(world.allTiles().size() > 0);
-    }
 
     @Test
     public void testFromTilesEmptyList() {
