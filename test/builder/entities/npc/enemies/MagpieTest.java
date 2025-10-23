@@ -141,5 +141,67 @@ public class MagpieTest {
         assertEquals(initialCoins - 1, inventory.getCoins());
     }
 
+    @Test
+    public void testMagpieSpriteChangesFromAttackToRetreat() {
+        // Start: Magpie is attacking player (who is below)
+        magpie.setX(PLAYER_X);
+        magpie.setY(PLAYER_Y - 100);
+        magpie.setAttacking(true);
+
+        magpie.tick(engineState, gameState);
+        String attackSprite = magpie.getSprite().getLabel();
+
+        // Trigger retreat by positioning magpie at player location
+        magpie.setX(PLAYER_X);
+        magpie.setY(PLAYER_Y);
+        magpie.tick(engineState, gameState);
+
+        // Now Magpie should be retreating
+        assertFalse(magpie.getAttacking());
+
+        // Position Magpie so spawn is above (opposite of initial
+        // attack direction)
+        magpie.setX(SPAWN_X);
+        magpie.setY(SPAWN_Y + 50);
+        magpie.tick(engineState, gameState);
+
+        String retreatSprite = magpie.getSprite().getLabel();
+
+        // Sprite should have changed from attack to retreat behavior
+        // Attack had "down", retreat should now have "up"
+        // (since spawn is above)
+        assertEquals("magpie:down", attackSprite);
+        assertEquals("magpie:up", retreatSprite);
+    }
+
+    @Test
+    public void testMagpieSpriteChangesWhenAttackingPlayerAbove() {
+        // Position magpie below the player
+        magpie.setX(PLAYER_X);
+        magpie.setY(PLAYER_Y + 100);  // Magpie is 100 pixels below
+        // player
+        magpie.setAttacking(true);
+
+        magpie.tick(engineState, gameState);
+
+        String magpieSpriteLabel = magpie.getSprite().getLabel();
+        // When attacking and player is below, sprite should be "up"
+        assertEquals("magpie:up", magpieSpriteLabel);
+    }
+
+    @Test
+    public void testMagpieSpriteChangesWhenAttackingPlayerBelow() {
+        // Position magpie above the player
+        magpie.setX(PLAYER_X);
+        magpie.setY(PLAYER_Y - 100);  // Magpie is 100 pixels above
+        // player
+        magpie.setAttacking(true);
+
+        magpie.tick(engineState, gameState);
+
+        String magpieSpriteLabel = magpie.getSprite().getLabel();
+        // When attacking and player is below, sprite should be "down"
+        assertEquals("magpie:down", magpieSpriteLabel);
+    }
 
 }

@@ -208,5 +208,64 @@ public class EagleTest {
         // Food should not decrease further
         assertEquals(initialFood - 3, inventory.getFood());
     }
+    @Test
+    public void testEagleSpriteChangesWhenAttackingPlayerBelow() {
+        // Position eagle above the player
+        eagle.setX(PLAYER_X);
+        eagle.setY(PLAYER_Y - 100);  // Eagle is 100 pixels above player
+        eagle.setAttacking(true);
 
+        eagle.tick(engineState, gameState);
+
+        String eagleSpriteLabel = eagle.getSprite().getLabel();
+        // When attacking and player is below, sprite should be "down"
+        assertEquals("eagle:down", eagleSpriteLabel);
+    }
+
+    @Test
+    public void testEagleSpriteChangesWhenAttackingPlayerAbove() {
+        // Position eagle below the player
+        eagle.setX(PLAYER_X);
+        eagle.setY(PLAYER_Y + 100);  // Eagle is 100 pixels below
+        // player
+        eagle.setAttacking(true);
+
+        eagle.tick(engineState, gameState);
+
+        String eagleSpriteLabel = eagle.getSprite().getLabel();
+        // When attacking and player is below, sprite should be "up"
+        assertEquals("eagle:up", eagleSpriteLabel);
+    }
+
+
+    @Test
+    public void testEagleSpriteChangesFromAttackToRetreat() {
+        // Start: Eagle is attacking player (who is below)
+        eagle.setX(PLAYER_X);
+        eagle.setY(PLAYER_Y - 100);
+        eagle.setAttacking(true);
+
+        eagle.tick(engineState, gameState);
+        String attackSprite = eagle.getSprite().getLabel();
+
+        // Trigger retreat by positioning eagle at player location
+        eagle.setX(PLAYER_X);
+        eagle.setY(PLAYER_Y);
+        eagle.tick(engineState, gameState);
+
+        // Now eagle should be retreating
+        assertFalse(eagle.getAttacking());
+
+        // Position eagle so spawn is above (opposite of initial attack direction)
+        eagle.setX(SPAWN_X);
+        eagle.setY(SPAWN_Y + 50);
+        eagle.tick(engineState, gameState);
+
+        String retreatSprite = eagle.getSprite().getLabel();
+
+        // Sprite should have changed from attack to retreat behavior
+        // Attack had "down", retreat should now have "up" (since spawn is above)
+        assertEquals("eagle:down", attackSprite);
+        assertEquals("eagle:up", retreatSprite);
+    }
 }
