@@ -3,6 +3,8 @@ package builder.helpers;
 import builder.entities.npc.enemies.Enemy;
 import engine.art.sprites.SpriteGroup;
 
+/** Helper class for targeting the player or other entities.
+ */
 public class TargetPlayerHelper {
     /**
      * Sets the direction and sprite of the eagle towards a target position.
@@ -11,15 +13,16 @@ public class TargetPlayerHelper {
      * @param isAttacking Boolean indicating if the eagle is attacking (true) or returning (false).
      */
     public static void setDirectionAndSpriteTowards(int targetX, int targetY, boolean isAttacking,
-                                              Enemy enemy, SpriteGroup art){
+                                              Enemy enemy,
+                                                    SpriteGroup art) {
         setNewDirection(targetX, targetY, enemy);
-        if (isAttacking){
+        if (isAttacking) {
             if (targetY > enemy.getY()) {
                 enemy.setSprite(art.getSprite("down"));
             } else {
                 enemy.setSprite(art.getSprite("up"));
             }
-        }else{
+        } else {
             if (targetY < enemy.getY()) {
                 enemy.setSprite(art.getSprite("up"));
             } else {

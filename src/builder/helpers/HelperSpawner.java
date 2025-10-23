@@ -12,9 +12,9 @@ import engine.timing.TickTimer;
  * that can be extended to create specific types of spawners.
  */
 public class HelperSpawner implements Spawner {
-    private int x;
-    private int y;
-    protected final TickTimer timer;
+    private int xcoordinate;
+    private int ycoordinate;
+    private final TickTimer timer;
 
     /**
      * Creates a new HelperSpawner at the given coordinates
@@ -24,8 +24,8 @@ public class HelperSpawner implements Spawner {
      * @param timer The timer for the spawner
      */
     protected HelperSpawner(int x, int y, RepeatingTimer timer) {
-        this.x = x;
-        this.y = y;
+        this.xcoordinate = x;
+        this.ycoordinate = y;
         this.timer = timer;
     }
 
@@ -38,8 +38,8 @@ public class HelperSpawner implements Spawner {
      * @param defaultDuration The default duration for the timer
      */
     protected HelperSpawner(int x, int y, int defaultDuration) {
-        this.x = x;
-        this.y = y;
+        this.xcoordinate = x;
+        this.ycoordinate = y;
         this.timer = new RepeatingTimer(defaultDuration);
     }
 
@@ -66,7 +66,7 @@ public class HelperSpawner implements Spawner {
      */
     @Override
     public int getX() {
-        return x;
+        return xcoordinate;
     }
 
     /**
@@ -74,7 +74,7 @@ public class HelperSpawner implements Spawner {
      */
     @Override
     public int getY() {
-        return y;
+        return ycoordinate;
     }
 
     /**
@@ -82,7 +82,7 @@ public class HelperSpawner implements Spawner {
      */
     @Override
     public void setX(int i) {
-        this.x = i;
+        this.xcoordinate = i;
     }
 
     /**
@@ -90,7 +90,7 @@ public class HelperSpawner implements Spawner {
      */
     @Override
     public void setY(int i) {
-        this.y = i;
+        this.ycoordinate = i;
     }
 
     /**
@@ -103,5 +103,5 @@ public class HelperSpawner implements Spawner {
         int deltaX = position.getX() - this.getX();
         int deltaY = position.getY() - this.getY();
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-}
+    }
 }
