@@ -79,12 +79,14 @@ public class WorldBuilder {
                 dimensions.windowSize() / dimensions.tileSize();
         String[] lines = text.split("\n");
         final boolean lineDesync = lines.length != numberOfTiles;
+        // Check number of lines
         if (lineDesync) {
             throw new WorldLoadException("Expected " + numberOfTiles
                     + " lines to match the given dimensions "
                     + "but got " + lines.length);
         }
 
+        // Parse each line
         final List<Tile> tiles = new ArrayList<>();
         for (int row = 0; row < numberOfTiles; row++) {
             char[] currentRow = lines[row].toCharArray();
@@ -97,6 +99,7 @@ public class WorldBuilder {
                                 + currentRow.length, row);
             }
 
+            // Parse each character in the line to create tiles
             for (int col = 0; col < numberOfTiles; col++) {
                 int tileX = dimensions.tileToPixel(col);
                 int tileY = dimensions.tileToPixel(row);

@@ -109,9 +109,12 @@ public class JavaBeanFarm implements Game {
         final String detailsContent = readAllReader(detailReader);
         final String worldContent = readAllReader(mapReader);
 
+        // Load player details and initialize managers for npcs and
+        // enemies
         final PlayerDetails playerDetails =
                 OverlayBuilder.getPlayerDetailsFromFile(detailsContent);
-        this.playerManager = new PlayerManager(playerDetails.getX(), playerDetails.getY());
+        this.playerManager = new PlayerManager(playerDetails.getX(),
+                playerDetails.getY());
         this.npcs = new NpcManager();
         this.enemies = new EnemyManager(dimensions);
 

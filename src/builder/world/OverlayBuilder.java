@@ -97,6 +97,7 @@ public class OverlayBuilder {
                 return y;
             }
 
+            // Prevent modification of spawner details
             @Override
             public void setX(int x) {
                 throw new UnsupportedOperationException(
@@ -280,6 +281,7 @@ public class OverlayBuilder {
         final List<String> section =
                 OverlayBuilder.getSection("cabbages", detailsContent);
         final List<CabbageDetails> list = new ArrayList<>();
+        // should always be 3 chunks in a correctly shaped line.
         for (String entry : section) {
             list.add(extractCabbageDetailsFromLine(entry));
         }
@@ -299,6 +301,8 @@ public class OverlayBuilder {
         String[] ychunk = chunks[1].split(":");
         final int x = Integer.parseInt(xchunk[1]);
         final int y = Integer.parseInt(ychunk[1]);
+
+        // should always be 2 chunks in a correctly shaped line.
         return new CabbageDetails() {
             @Override
             public int getX() {

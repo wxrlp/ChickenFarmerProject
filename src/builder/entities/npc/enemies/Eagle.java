@@ -121,6 +121,8 @@ public class Eagle extends Enemy implements Expirable {
         if (this.lifespan.isFinished()) {
             this.markForRemoval();
         }
+
+        // Attack the player if close enough and currently attacking
         if ((this.distanceFrom(playerX, playerY) < tileSize)
                 && this.attacking) {
             this.attacking = false;
@@ -133,6 +135,8 @@ public class Eagle extends Enemy implements Expirable {
             // food
             //      }
         }
+
+        //Return to spawn after attack or scared away
         if ((this.distanceFrom(this.spawnX, this.spawnY)
                 < tileSize) && !this.attacking) {
             this.markForRemoval();

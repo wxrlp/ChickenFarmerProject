@@ -43,6 +43,8 @@ public class Scarecrow extends Npc {
         EnemyManager enemies = game.getEnemies();
         final ArrayList<Magpie> magpies = new ArrayList<>();
         final ArrayList<Pigeon> pigeons = new ArrayList<>();
+
+        // Add all magpies and pigeons to their respective lists
         for (Enemy bird : enemies.getBirds()) {
             if (bird instanceof Magpie) {
                 magpies.add((Magpie) bird);

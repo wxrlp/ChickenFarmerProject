@@ -168,6 +168,8 @@ public class Pigeon extends Enemy implements Expirable {
             // the screen if its hunting
             returnToSpawn(engine);
         }
+
+        // Move toward target cabbage if attacking
         if (this.trackedTarget != null && this.attacking) {
             double deltaX = (this.trackedTarget.getX() - this.getX());
             double deltaY = (this.trackedTarget.getY() - this.getY());

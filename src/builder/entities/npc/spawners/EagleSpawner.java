@@ -39,7 +39,7 @@ public class EagleSpawner extends HelperSpawner implements Spawner {
         getTimer().tick();
         if (this.getTimer().isFinished()) {
             if (game.getEnemies() == null) {
-                return;
+                return; // Check if enemies manager exists
             }
             game.getEnemies().spawnEagle(
                     this.getX(), this.getY(), game.getPlayer());
